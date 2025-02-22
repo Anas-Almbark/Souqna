@@ -1,6 +1,6 @@
 # **Local Used Products Buying and Selling Project**
 
-![Project Analysis](image.png)  
+![Project Analysis](https://www2.0zz0.com/2025/02/22/19/914100972.png)  
 *(Project Analysis Diagram)*
 
 ## **Project Description**  
