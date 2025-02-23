@@ -12,7 +12,7 @@ return new class extends Migration {
             $table->string('name');
             $table->text('description')->nullable();
             $table->decimal('price', 10, 2);
-            $table->enum('status', ['متاح', 'غير متاح'])->default('متاح');
+            $table->enum('status', ['available', 'Not available'])->default('available');
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); 
             $table->timestamps();
         });
