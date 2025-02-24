@@ -16,14 +16,14 @@ class Product extends Model
         'category_id',
         'user_id',
     ];
-    public function category(){
+    public function categories(){
         return $this->belongsToMany(Category::class);
     }
     public function user(){
         return $this->belongsTo(User::class);
     }
-    public function ads(){
-        return $this->hasMany(Ads::class);
+    public function ad(){
+        return $this->belongsTo(Ad::class);
     }
     
 }
