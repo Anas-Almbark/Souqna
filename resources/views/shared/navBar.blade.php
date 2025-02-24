@@ -47,6 +47,17 @@
               <li class="nav-item"><button><i class="ti-search"></i></button></li>
               <li class="nav-item"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">3</span></button> </li>
               <li class="nav-item"><a class="button button-header" href="#">Buy Now</a></li>
+             @if (auth()->user())
+                 
+             
+              <li class="nav-item">
+                <form action="{{ route('logout') }}" method="post">
+                  @csrf
+                  <button type="submit" class="button button-header" href="{{ route('logout') }}">Logout</button>
+                </form>
+                
+              </li>
+            @endif
             </ul>
           </div>
         </div>
