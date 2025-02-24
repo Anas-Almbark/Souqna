@@ -11,18 +11,39 @@
                 <th>Name</th>
                 <th>email</th>
                 <th>roll</th>
-                <th rowspan="2">action</th>
+                <th colspan="2">action</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Gavin Joyce</td>
-                <td>Developer</td>
-                <td>Edinburgh</td>
-                <td>42</td>
-                <td>2010/12/22</td>
-                <td>$92,575</td>
-              </tr>
+                @forelse ($admins as $admin)
+                <tr>
+                    <td> {{$admin->name}} </td>
+                    <td> {{$admin->email}} </td>
+                    <td> {{$admin->role}} </td>
+                    <td>
+                        <form action="{{route("admin.destroy")}}" method="post">
+                            @csrf
+                            @method("DELETE")
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="" method="POST">
+                            @csrf
+                            @method("PUT")
+                            <button class="btn btn-warning">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td rowspan="5"> Not Fount any data </td>
+                </tr>
+                @endforelse
             </tbody>
           </table>
         </div>

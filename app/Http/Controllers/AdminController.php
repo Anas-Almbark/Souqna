@@ -11,7 +11,7 @@ class AdminController extends Controller
     public function index()
     {
         $admins = Admin::all();
-        return view("dashboardComponents.admin", compact("admins"));
+        return view("dashboardComponents.admins", compact("admins"));
     }
     public function create()
     {
