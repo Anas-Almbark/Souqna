@@ -2,7 +2,6 @@
 @section("content")
 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
     <div class="card">
-      <h5 class="card-header">Basic Table</h5>
       <div class="card-body">
         <div class="table-responsive">
           <table class="table table-striped table-bordered first">
@@ -10,7 +9,7 @@
               <tr>
                 <th>Name</th>
                 <th>email</th>
-                <th>roll</th>
+                <th>role</th>
                 <th colspan="2">action</th>
               </tr>
             </thead>
@@ -24,16 +23,15 @@
                         <form action="{{route("admin.destroy", $admin->id)}}" method="post">
                             @csrf
                             @method("DELETE")
-                            <button type="submit" class="btn btn-danger">
+                            <button type="submit" class="btn-danger text-sm rounded border-none">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </form>
                     </td>
                     <td>
-                        <form action="" method="POST">
+                        <form action="{{route("admin.edit" , $admin->id)}}" method="GET">
                             @csrf
-                            @method("PUT")
-                            <button class="btn btn-warning">
+                            <button class="btn-warning">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
                         </form>
@@ -41,7 +39,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td rowspan="5"> Not Fount any data </td>
+                    <td colspan="5" class="text-center"> Not Found any data </td>
                 </tr>
                 @endforelse
             </tbody>
