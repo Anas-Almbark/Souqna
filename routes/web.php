@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,8 +25,14 @@ Route::view("/connect", "shared.connect")->name("connect.index");
 Route::view("/tracking", "shared.tracking")->name("tracking.index");
 
 
-Route::get("/homeDashboard", function () {
-    return view('dashboardComponents.homeDashboard');
-})->name("homeDashboard.index");
+//? Group for admin actions
+Route::middleware('auth')->group(function () {
+    Route::get('admins', [AdminController::class, 'index'])->name('admin.index');
+    Route::get('new-admin', [AdminController::class, 'create'])->name('admin.create');
+    Route::post('add-admin', [AdminController::class, 'store'])->name('admin.store');
+    Route::delete('delete-admin', [AdminController::class, 'destroy'])->name('admin.destroy');
+});
+
+
 
 require __DIR__ . '/auth.php';

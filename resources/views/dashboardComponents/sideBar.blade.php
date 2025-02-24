@@ -19,7 +19,7 @@
                                     <div id="submenu-1-2" class="collapse submenu" style="">
                                         <ul class="nav flex-column">
                                             <li class="nav-item">
-                                                <a class="nav-link" href="{{route("homeDashboard.index")}}">E Commerce Dashboard</a>
+                                                <a class="nav-link" href="">E Commerce Dashboard</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" href="ecommerce-product.html">Product List</a>

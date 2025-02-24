@@ -18,9 +18,9 @@
     <div class="dashboard-main-wrapper">
         @include('dashboardComponents.navBar')
         @include("dashboardComponents.sideBar")
-        <div class="dashboard-wrapper">
+        <div class="dashboard-wrapper pt-5">
             @yield('content')
-            @include("dashboardComponents.footer")
+            {{-- @include("dashboardComponents.footer") --}}
         </div>
     </div>
     <!-- ============================================================== -->
