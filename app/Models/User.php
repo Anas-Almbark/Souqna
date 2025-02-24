@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use PDO;
 
 class User extends Authenticatable
 {
@@ -60,5 +61,14 @@ class User extends Authenticatable
     public function request()
     {
         return $this->hasMany(Request::class);
+    }
+
+    public function supports()
+    {
+        return $this->hasMany(Support::class);
+    }
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class);
     }
 }
