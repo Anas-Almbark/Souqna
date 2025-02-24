@@ -1,6 +1,6 @@
 <div class="dashboard-header">
     <nav class="navbar navbar-expand-lg bg-white fixed-top">
-        <a class="navbar-brand" href="index.html">Concept</a>
+        <a class="navbar-brand" href="index.html">Souqna</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -103,7 +103,7 @@
                             @csrf
                             <button type="submit" class="dropdown-item" ><i class="fas fa-power-off mr-2"></i>Logout</button>
                         </form>
-                        
+
                     </div>
                 </li>
             </ul>

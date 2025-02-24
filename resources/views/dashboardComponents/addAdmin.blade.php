@@ -6,7 +6,7 @@
             @csrf
             <div class="form-group">
                 <label for="full-name" class="col-form-label">Full Name</label>
-                <input id="full-name" type="text" name="name" class="form-control">
+                <input id="full-name" type="text" name="name" class="form-control" placeholder="full name">
             </div>
             <div class="form-group">
                 <label for="inputEmail">Email address</label>
