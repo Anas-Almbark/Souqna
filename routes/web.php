@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::get('admins', [AdminController::class, 'index'])->name('admin.index');
     Route::get('new-admin', [AdminController::class, 'create'])->name('admin.create');
     Route::post('add-admin', [AdminController::class, 'store'])->name('admin.store');
-    Route::delete('delete-admin', [AdminController::class, 'destroy'])->name('admin.destroy');
+    Route::delete('delete-admin/{id}', [AdminController::class, 'destroy'])->name('admin.destroy');
 });
 
 
