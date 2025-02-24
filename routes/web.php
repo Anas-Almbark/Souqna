@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/dashboard', function () {
     return view('dashboardComponents.homeDashboard');
-})->middleware(['auth', 'verified', "role"])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -26,7 +26,7 @@ Route::view("/tracking", "shared.tracking")->name("tracking.index");
 
 
 //? Group for admin actions
-Route::middleware(['auth', 'role'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('admins', [AdminController::class, 'index'])->name('admin.index');
     Route::get('new-admin', [AdminController::class, 'create'])->name('admin.create');
     Route::post('add-admin', [AdminController::class, 'store'])->name('admin.store');
