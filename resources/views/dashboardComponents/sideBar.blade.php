@@ -11,14 +11,14 @@
                         Menu
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="#"><i class="fa fa-fw fa-user-circle"></i>Dashboard <span class="badge badge-success">6</span></a>
+                        <a class="nav-link" href="{{ route('dashboard') }}"><i class="fa fa-fw fa-user-circle"></i>Dashboard <span class="badge badge-success">6</span></a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-user-circle"></i>Admins <span class="badge badge-success">6</span></a>
                         <div id="submenu-2" class="collapse submenu" style="">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('admin.create') }}"><i class="fa fa-fw fa-user-circle"></i>Add Admin<span class="badge badge-success">6</span></a>
+                                    <a class="nav-link" href=""><i class="fa fa-fw fa-user-circle"></i>Add Admin<span class="badge badge-success">6</span></a>
 
                                             </li>
                                         </ul>
