@@ -21,7 +21,7 @@
                     <td> {{$admin->email}} </td>
                     <td> {{$admin->role}} </td>
                     <td>
-                        <form action="{{route("admin.destroy")}}" method="post">
+                        <form action="{{route("admin.destroy", $admin->id)}}" method="post">
                             @csrf
                             @method("DELETE")
                             <button type="submit" class="btn btn-danger">
