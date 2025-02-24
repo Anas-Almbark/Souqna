@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('dashboardComponents.homeDashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -23,5 +23,9 @@ Route::view("/product", "shared.shopSingle")->name("product.index");
 Route::view("/connect", "shared.connect")->name("connect.index");
 Route::view("/tracking", "shared.tracking")->name("tracking.index");
 
+
+Route::get("/homeDashboard", function () {
+    return view('dashboardComponents.homeDashboard');
+})->name("homeDashboard.index");
 
 require __DIR__ . '/auth.php';
