@@ -5,9 +5,11 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/dashboard', function () {
-    return view('dashboardComponents.homeDashboard');
-})->middleware(['auth', 'verified', "role"])->name('dashboard');
+Route::middleware(['auth:admin'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboardComponents.homeDashboard');
+    })->name('dashboard');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

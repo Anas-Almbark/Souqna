@@ -34,13 +34,18 @@ return [
     | Supported: "session"
     |
     */
-
-    'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
+// تعيين حراس لفحص تسجيل الدخول
+'guards' => [
+    'web' => [
+        'driver' => 'session',  // يحدد أن المصادقة تعتمد على الجلسات (Session)
+        'provider' => 'users',  // يربط الحارس بمصدر بيانات المستخدمين (جدول users)
     ],
+    
+    'admin' => [
+        'driver' => 'session',  // نفس الشيء، يستخدم الجلسات لحفظ تسجيل الدخول
+        'provider' => 'admins', // لكن هذا الحارس مرتبط بجدول المشرفين (admins)
+    ],
+],
 
     /*
     |--------------------------------------------------------------------------
@@ -59,17 +64,18 @@ return [
     |
     */
 
-    'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
-        ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+'providers' => [
+    'users' => [
+        'driver' => 'eloquent',  // يحدد أن البيانات سيتم جلبها عبر Eloquent ORM
+        'model' => App\Models\User::class,  // يحدد أن المستخدمين يتم جلبهم من Model: User
     ],
+
+    'admins' => [
+        'driver' => 'eloquent',  // نفس الشيء، لكن للمسؤولين (admins)
+        'model' => App\Models\Admin::class,  // المستخدمون سيتم جلبهم من Model: Admin
+    ],
+],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -90,14 +96,22 @@ return [
     |
     */
 
-    'passwords' => [
-        'users' => [
-            'provider' => 'users',
-            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
-            'expire' => 60,
-            'throttle' => 60,
-        ],
+'passwords' => [
+    'users' => [
+        'provider' => 'users',
+        'table' => 'password_reset_tokens',
+        'expire' => 60,
+        'throttle' => 60,
     ],
+
+    'admins' => [
+        'provider' => 'admins',
+        'table' => 'password_reset_tokens',
+        'expire' => 60,
+        'throttle' => 60,
+    ],
+],
+
 
     /*
     |--------------------------------------------------------------------------
