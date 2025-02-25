@@ -35,8 +35,10 @@
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                   aria-expanded="false">Pages</a>
                 <ul class="dropdown-menu">
+                  @if (!auth()->user())
                   <li class="nav-item"><a class="nav-link" href="{{ route("login") }}">Login</a></li>
                   <li class="nav-item"><a class="nav-link" href={{ route("register") }}>Register</a></li>
+                  @endif
                   <li class="nav-item"><a class="nav-link" href="{{ route("tracking.index") }}">Tracking</a></li>
                 </ul>
               </li>
