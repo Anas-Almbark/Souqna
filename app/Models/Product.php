@@ -25,5 +25,9 @@ class Product extends Model
     public function ad(){
         return $this->belongsTo(Ad::class);
     }
+    public function photos(){
+        return $this->hasMany(Photo::class);
+    }
+
     
 }

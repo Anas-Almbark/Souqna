@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -35,6 +36,8 @@ Route::middleware(['auth'])->group(function () {
     Route::put('update-admin/{admin}', [AdminController::class, 'update'])->name('admin.update');
     Route::put('update-password/{admin}', [AdminController::class, 'updatePassword'])->name('admin.updatePass');
 });
+
+Route::resource('products', ProductController::class);
 
 
 
