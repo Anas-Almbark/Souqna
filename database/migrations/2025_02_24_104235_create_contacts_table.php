@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
             $table->foreignId("user_id")->constrained()->cascadeOnDelete();
-            $table->string("phone_primary");
-            $table->string("phone_second")->nullable();
-            $table->string("facebook")->nullable();
-            $table->string("instagram")->nullable();
-            $table->string("tiktok")->nullable();
+            $table->string("phone_primary")->unique();
+            $table->string("phone_second")->nullable()->unique();
+            $table->string("facebook")->nullable()->unique();
+            $table->string("instagram")->nullable()->unique();
+            $table->string("tiktok")->nullable()->unique();
             $table->timestamps();
         });
     }
