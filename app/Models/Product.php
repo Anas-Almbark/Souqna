@@ -15,6 +15,7 @@ class Product extends Model
         'description',
         'category_id',
         'user_id',
+        'status',
     ];
     public function categories(){
         return $this->belongsToMany(Category::class);
@@ -25,5 +26,11 @@ class Product extends Model
     public function ad(){
         return $this->belongsTo(Ad::class);
     }
+
+    public function photos()
+    {
+        return $this->hasMany(ProductPhoto::class);
+    }
+
     
 }

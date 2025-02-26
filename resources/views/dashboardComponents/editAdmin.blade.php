@@ -10,7 +10,7 @@
                 <label for="full-name" class="col-form-label">Full Name</label>
                 <input id="full-name" value="{{$admin->name}}" type="text" name="name" class="form-control">
             </div>
-            <button type="submit" class="btn btn-primary"> add </button>
+            <button type="submit" class="btn btn-primary"> Update </button>
         </form>
     </div>
 </div>
@@ -28,7 +28,7 @@
                 <label for="inputPassword">Confirm Password</label>
                 <input id="inputPassword" type="password" name="password_confirmation" placeholder="Password" class="form-control">
             </div>
-            <button type="submit" class="btn btn-primary"> add </button>
+            <button type="submit" class="btn btn-primary"> Update </button>
         </form>
     </div>
 </div>

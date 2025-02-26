@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -27,7 +29,7 @@ Route::view("/tracking", "shared.tracking")->name("tracking.index");
 
 
 //? Group for admin actions
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth:admin'])->group(function () {
     Route::get('admins', [AdminController::class, 'index'])->name('admin.index');
     Route::get('new-admin', [AdminController::class, 'create'])->name('admin.create');
     Route::post('add-admin', [AdminController::class, 'store'])->name('admin.store');
@@ -36,6 +38,10 @@ Route::middleware(['auth'])->group(function () {
     Route::put('update-admin/{admin}', [AdminController::class, 'update'])->name('admin.update');
     Route::put('update-password/{admin}', [AdminController::class, 'updatePassword'])->name('admin.updatePass');
 });
+
+Route::resource('products', ProductController::class);
+
+Route::resource('categories', CategoryController::class)->middleware('auth:admin');
 
 
 

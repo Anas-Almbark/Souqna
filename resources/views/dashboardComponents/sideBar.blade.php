@@ -34,6 +34,24 @@
                             </ul>
                         </div>
                     </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{ route('categories.create') }}" data-toggle="collapse"
+                            aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3"><i
+                                class="fa fa-fw fa-user-circle"></i>Categories <span
+                                class="badge badge-success">6</span></a>
+                        <div id="submenu-3" class="collapse submenu" style="">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('categories.index') }}"><i
+                                            class="fa fa-fw fa-user-circle"></i>Show Categories<span
+                                            class="badge badge-success">6</span></a>
+                                    <a class="nav-link" href="{{ route('categories.create') }}"><i
+                                            class="fa fa-fw fa-user-circle"></i>Add Categories<span
+                                            class="badge badge-success">6</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </nav>
