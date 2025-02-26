@@ -3,58 +3,75 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
+    public function index()
+    {
+        $user = Auth::user();
+        return view('profile.partials.view', compact('user'));
+    }
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        $user = $request->user();
+        return view('profile.edit', compact('user'));
     }
-
-    /**
-     * Update the user's profile information.
-     */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(Request $request)
     {
-        $request->user()->fill($request->validated());
+        $user = User::find(Auth::id());
+        $validation = $request->validate([
+            'name' => 'sometimes|string|max:255|min:3',
+            "location" => 'sometimes|string|max:255|min:5',
+            "identity" => 'sometimes|file|mimes:pdf',
+            "photo" => 'sometimes|file|mimes:jpg,jpeg,png',
+            "phonePrimary" => 'sometimes|numeric|digits_between:8,15',
+            "phoneSecondary" => 'sometimes|numeric|digits_between:8,15',
+            "facebook" => 'sometimes|string|min:1|max:255|url',
+            "instagram" => 'sometimes|string|min:1|max:255|url',
+            "tiktok" => 'sometimes|string|min:1|max:255|url',
+        ]);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        if (isset($validation['name'])) {
+            $user->name = $validation['name'];
+        }
+        if (isset($validation['location'])) {
+            $user->location = $validation['location'];
+        }
+        // if (isset($validation['phonePrimary'])) {
+        //     $user->phonePrimary = $validation['phonePrimary'];
+        // }
+        // if (isset($validation['phoneSecondary'])) {
+        //     $user->phoneSecondary = $validation['phoneSecondary'];
+        // }
+        // if (isset($validation['facebook'])) {
+        //     $user->facebook = $validation['facebook'];
+        // }
+        // if (isset($validation['instagram'])) {
+        //     $user->instagram = $validation['instagram'];
+        // }
+        // if (isset($validation['tiktok'])) {
+        //     $user->tiktok = $validation['tiktok'];
+        // }
+
+        if ($request->hasFile('identity')) {
+            $user->identity = $request->file('identity')->store('identity_user', 'public');
         }
 
-        $request->user()->save();
+        if ($request->hasFile('photo')) {
+            if ($user->photo) {
+                Storage::disk('public')->delete($user->photo);
+            }
+            $user->photo = $request->file('photo')->store('photo_user', 'public');
+        }
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
-    }
-
-    /**
-     * Delete the user's account.
-     */
-    public function destroy(Request $request): RedirectResponse
-    {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
-
-        $user = $request->user();
-
-        Auth::logout();
-
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
+        $user->save();
+        return redirect()->route('profile.index')->with('success', 'Profile updated successfully');
     }
 }
