@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-Use App\Models\Product;
+use App\Models\Product;
+use App\Models\ProductPhoto;
 class ProductController extends Controller
 {
     /**
@@ -11,7 +12,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-       dd("show products");
+        dd("show products");
     }
 
     /**
@@ -27,40 +28,37 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            "name"=> "required",
-            "price"=> "required",
-            "description"=> "required",
-            "image"=> "required",
-            "status"=> "required",
+        $validated = $request->validate([
+            'name' => 'required',
+            'price' => 'required',
+            'description' => 'required',
+            'photos.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5000',
+            'status' => 'required',
         ]);
-        $product = new Product();
-$product->user_id = auth()->id();
-        $product->name = $request->name;
-        $product->price = $request->price;
-        $product->description = $request->description;
-        $product->status= $request->status;
-        $product->save();
 
-        // Handle multiple product photos
+        // إنشاء المنتج
+        $product = Product::create(array_merge($validated, ['user_id' => auth()->id()]));
 
-        if(request()->has("image")){
+        // رفع الصور إن وجدت
+        if ($request->hasFile('photos')) {
+            foreach ($request->file('photos') as $photo) {
+                ProductPhoto::create([
+                    'product_id' => $product->id,
+                    'url' => $photo->store('products', 'public'),
+                ]);
+            }
+        }
 
-$product->photos()->create([
-    'image' => request()->file('image')->store('product_photos', 'public')
-]);
-       
-
+        return back()->with('success', 'Added successfully');
     }
-    return redirect()->back()->with("success","added successfully");
-}
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        dd("show product");
+        $product = Product::findOrFail($id);
+        return view('products.show', compact('product'));
     }
 
     /**
@@ -68,7 +66,8 @@ $product->photos()->create([
      */
     public function edit(string $id)
     {
-        dd("edit product");
+        $product = Product::findOrFail($id);
+        return view('products.edit', compact('product'));
     }
 
     /**
@@ -76,7 +75,28 @@ $product->photos()->create([
      */
     public function update(Request $request, string $id)
     {
-        dd("update product");
+        $validated = $request->validate([
+            'name' => 'sometimes|required',
+            'price' => 'sometimes|required',
+            'description' => 'sometimes|required',
+            'photos.*' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:5000',
+            'status' => 'sometimes|required',
+        ]);
+
+        $product = Product::findOrFail($id);
+        $product->update($validated);
+
+        // Handle photo uploads if present
+        if ($request->hasFile('photos')) {
+            foreach ($request->file('photos') as $photo) {
+                ProductPhoto::create([
+                    'product_id' => $product->id,
+                    'url' => $photo->store('products', 'public'),
+                ]);
+            }
+        }
+
+        return back()->with('success', 'Product updated successfully');
     }
 
     /**
@@ -84,6 +104,8 @@ $product->photos()->create([
      */
     public function destroy(string $id)
     {
-        dd("delete product");
+        $product = Product::findOrFail($id);
+        $product->delete();
+        return redirect()->route('home.index')->with('success', 'Product deleted successfully');
     }
 }

@@ -37,28 +37,29 @@
                     <div class="card mx-auto">
                         <h5 class="card-header">Basic Form</h5>
                         <div class="card-body">
-                            <form action="{{ route('products.store') }}" id="basicform" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('products.update', $product->id) }}" id="basicform" method="POST" enctype="multipart/form-data">
+                                @method('PUT')
                                 @csrf
                                 <div class="form-group">
                                     <label for="inputName">Name</label>
                                     <input id="inputName" type="text" name="name" data-parsley-trigger="change" required
-                                        placeholder="Enter name" autocomplete="off" class="form-control">
+                                        placeholder="Enter name" autocomplete="off" class="form-control" value="{{ $product->name }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="inputDescription">description</label>
                                     <input id="inputDescription" type="text" name="description" data-parsley-trigger="change"
-                                        required placeholder="Enter description" autocomplete="off" class="form-control">
+                                         placeholder="Enter description" autocomplete="off" class="form-control" value="{{ $product->description }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="inputPrice">Price</label>
-                                    <input id="inputPrice" type="text" name="price" placeholder="Price" required class="form-control">
+                                    <input id="inputPrice" type="text" name="price" placeholder="Price"  class="form-control" value="{{ $product->price }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="inputStatus">Status</label>
-                                    <select id="inputStatus" name="status" class="form-control" required>
+                                    <select id="inputStatus" name="status" class="form-control">
                                         <option value="">Select Status</option>
-                                        <option value="available">Available</option>
-                                        <option value="Not available">Not Available</option>
+                                        <option value="available" {{ $product->status === 'available' ? 'selected' : '' }}>Available</option>
+                                        <option value="Not available" {{ $product->status === 'Not available' ? 'selected' : '' }}>Not Available</option>
                                     </select>
                                 </div>
                                 {{-- هنا يوجد خطأ فني يحتاج الى صيانة --}}
@@ -79,7 +80,7 @@
                                 <div class="form-group">
                                     <label for="productImages">Product Images</label>
                                     <input type="file" id="productImages" name="photos[]" class="form-control"
-                                        accept="image/*" multiple required enctype="multipart/form-data">
+                                        accept="image/*" multiple enctype="multipart/form-data">
                                     <small class="form-text text-muted">
                                         You can select multiple images for your product (Maximum size: 2MB per image)
                                     </small>
