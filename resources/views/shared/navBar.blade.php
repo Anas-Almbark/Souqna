@@ -42,6 +42,19 @@
                   <li class="nav-item"><a class="nav-link" href="{{ route("tracking.index") }}">Tracking</a></li>
                 </ul>
               </li>
+              @if (auth()->user())
+              <li class="nav-item submenu dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                  aria-expanded="false">Products </a>
+                <ul class="dropdown-menu">
+                  <li class="nav-item"><a class="nav-link" href="{{route('products.create')}}">Add Product</a></li>
+                  <li class="nav-item"><a class="nav-link" href="{{route('products.index')}}">View Products</a></li>
+                  
+
+                  
+                </ul>
+              </li>
+              @endif
               <li class="nav-item"><a class="nav-link" href="{{ route("connect.index") }}">Contact</a></li>
             </ul>
 
