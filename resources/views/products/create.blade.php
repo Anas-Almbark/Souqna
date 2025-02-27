@@ -8,6 +8,7 @@
             <!-- ============================================================== -->
             <!-- pageheader -->
             <!-- ============================================================== -->
+      
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="page-header">
@@ -42,54 +43,59 @@
                     <div class="card mx-auto">
                         <h5 class="card-header">Basic Form</h5>
                         <div class="card-body">
+<<<<<<< HEAD
                             <div class="alert alert-info" role="alert">
                                 Note: Your product will be reviewed by an administrator before being published.
                             </div>
                             <form action="{{ route('products.store') }}" id="basicform" method="POST" enctype="multipart/form-data">
+=======
+                            <form action="{{ route('products.store') }}" id="basicform" method="POST"
+                                enctype="multipart/form-data">
+>>>>>>> 7a6ff9abc715a4755f819937d0f22c306653f7a9
                                 @csrf
                                 <div class="form-group">
                                     <label for="inputName">Name</label>
-                                    <input id="inputName" type="text" name="name" data-parsley-trigger="change" required
-                                        placeholder="Enter name" autocomplete="off" class="form-control">
+                                    <input id="inputName" type="text" name="name" data-parsley-trigger="change"
+                                        required placeholder="Enter name" autocomplete="off" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label for="inputDescription">description</label>
-                                    <input id="inputDescription" type="text" name="description" data-parsley-trigger="change"
-                                        required placeholder="Enter description" autocomplete="off" class="form-control">
+                                    <input id="inputDescription" type="text" name="description"
+                                        data-parsley-trigger="change" required placeholder="Enter description"
+                                        autocomplete="off" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label for="inputPrice">Price</label>
-                                    <input id="inputPrice" type="text" name="price" placeholder="Price" required class="form-control">
+                                    <input id="inputPrice" type="text" name="price" placeholder="Price" required
+                                        class="form-control">
                                 </div>
-                                <div class="form-group">
-                                    <label for="inputStatus">Status</label>
-                                    <select id="inputStatus" name="status" class="form-control" required>
-                                        <option value="">Select Status</option>
-                                        <option value="available">Available</option>
-                                        <option value="Not available">Not Available</option>
-                                    </select>
+                                <div class="form-row w-100">
+                                    <div class="form-group col-12">
+                                        <label for="inputStatus">Status</label>
+                                        <select id="inputStatus" name="status" class="form-control" required>
+                                            <option value="">Select Status</option>
+                                            <option value="available">Available</option>
+                                            <option value="Not available">Not Available</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 {{-- هنا يوجد خطأ فني يحتاج الى صيانة --}}
                                 <div class="form-group">
-                                    <label for="categories">Categories</label>
-                                    <select id="categories" name="categories[]" multiple class="form-control">
-                                        <option value="electronics">Electronics</option>
-                                        <option value="clothing">Clothing</option>
-                                        <option value="books">Books</option>
-                                        <option value="sports">Sports</option>
-                                        <option value="home">Home & Garden</option>
-                                        <option value="toys">Toys</option>
-                                        <option value="automotive">Automotive</option>
-                                        <option value="health">Health & Beauty</option>
+                                    <label for="exampleFormControlSelect2">Categories</label>
+                                    <select name="categories[]" multiple class="form-control" id="exampleFormControlSelect2">
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
+
                                 {{-- هنا يوجد خطأ فني يحتاج الى صيانة --}}
                                 <div class="form-group">
                                     <label for="productImages">Product Images</label>
                                     <input type="file" id="productImages" name="photos[]" class="form-control"
                                         accept="image/*" multiple required enctype="multipart/form-data">
                                     <small class="form-text text-muted">
-                                        You can select multiple images for your product (Maximum size: 2MB per image)
+                                        You can select multiple images for your product (Maximum size: 5MB per image)
                                     </small>
                                 </div>
 
@@ -111,5 +117,4 @@
             </div>
         </div>
     </div>
-
 @endsection

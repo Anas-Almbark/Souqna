@@ -4,8 +4,13 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SupportController;
 use Illuminate\Support\Facades\Route;
+<<<<<<< HEAD
 use App\Http\Controllers\HomeController;
+=======
+use Nette\Schema\Expect;
+>>>>>>> 7a6ff9abc715a4755f819937d0f22c306653f7a9
 
 
 Route::get('/dashboard', function () {
@@ -44,6 +49,7 @@ Route::resource('products', ProductController::class);
 
 Route::resource('categories', CategoryController::class)->middleware('auth:admin');
 
+<<<<<<< HEAD
 Route::middleware(['auth:admin'])->prefix('adminproducts')->group(function () {
     Route::get('/products', [ProductController::class, 'index'])->name('admin.products.index');
     Route::post('/products/approve/{id}', [ProductController::class, 'approve'])->name('admin.products.approve');
@@ -52,5 +58,9 @@ Route::middleware(['auth:admin'])->prefix('adminproducts')->group(function () {
 
 Route::get('/', action: [HomeController::class, 'index'])->name('home.index');
 Route::get('/home', action: [HomeController::class, 'index'])->name('home.index');
+=======
+Route::resource('supports', SupportController::class)->middleware(['auth:admin','auth'])->except('create');
+Route::get('/supports/create', [SupportController::class,'create'])->name('supports.create');
+>>>>>>> 7a6ff9abc715a4755f819937d0f22c306653f7a9
 
 require __DIR__ . '/auth.php';

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductPhoto;
+use App\Models\Category;
+use Illuminate\Support\Facades\Storage;
 class ProductController extends Controller
 {
     /**
@@ -28,7 +30,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view("products.create");
+        $categories = Category::all();
+        return view("products.create", compact("categories"));
     }
 
     /**
@@ -44,6 +47,7 @@ class ProductController extends Controller
         'status' => 'required',
     ]);
 
+<<<<<<< HEAD
     // إضافة المنتج مع تعيين `check` إلى 0 (قيد المراجعة)
     $product = Product::create(array_merge($validated, [
         'user_id' => auth()->id(),
@@ -58,6 +62,25 @@ class ProductController extends Controller
                 'url' => $photo->store('products', 'public'),
             ]);
         }
+=======
+        // إنشاء المنتج
+        $product = Product::create(array_merge($validated, ['user_id' => auth()->id()]));
+        // Attach categories to the product
+        if ($request->has('categories')) {
+            $product->categories()->attach($request->categories);
+        }
+        // رفع الصور إن وجدت
+        if ($request->hasFile('photos')) {
+            foreach ($request->file('photos') as $photo) {
+                ProductPhoto::create([
+                    'product_id' => $product->id,
+                    'url' => $photo->store('products', 'public'),
+                ]);
+            }
+        }
+
+        return redirect()->route('products.index')->with('success', 'Added successfully');
+>>>>>>> 7a6ff9abc715a4755f819937d0f22c306653f7a9
     }
 
     return back()->with('success', 'The product has been sent for review.');
@@ -69,7 +92,8 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        $product = Product::with('photos')->findOrFail($id);
+        $product = Product::with(['photos', 'categories'])->findOrFail($id);
+        $product->load('photos');
         return view('products.show', compact('product'));
     }
 
@@ -117,6 +141,14 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         $product = Product::findOrFail($id);
+        
+        // Delete product photos from storage
+        foreach($product->photos as $photo) {
+            if(Storage::disk('public')->exists($photo->url)) {
+                Storage::disk('public')->delete($photo->url);
+            }
+        }
+        
         $product->delete();
         return redirect()->route('home.index')->with('success', 'Product deleted successfully');
     }

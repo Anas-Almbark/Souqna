@@ -75,7 +75,8 @@
       </div>
     </div>
     <div class="col-md-8 col-lg-9">
-      <form action="#/" class="form-contact contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+      <form action="{{ route('supports.store') }}" class="form-contact contact_form" method="post" id="contactForm" novalidate="novalidate">
+        @csrf
         <div class="row">
           <div class="col-lg-5">
             <div class="form-group">
@@ -95,6 +96,9 @@
           </div>
         </div>
         <div class="form-group text-center text-md-right mt-3">
+          @if (Auth::user())
+          <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+          @endif
           <button type="submit" class="button button--active button-contactForm">Send Message</button>
         </div>
       </form>

@@ -6,8 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Support extends Model
 {
-    public function user()
-    {
+    protected $fillable = [
+        'name',
+        'email',
+        'subject',
+        'message',
+        'user_id',
+    ];
+    public function user(){
         return $this->belongsTo(User::class);
     }
 }
