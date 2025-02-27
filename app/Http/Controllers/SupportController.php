@@ -15,6 +15,10 @@ class SupportController extends Controller
         $supports = Support::all();
         return view("supports.index", compact("supports"));
     }
+    public function usermessages(){
+        $supports = Support::all();
+        return view("supports.userMessages", compact("supports"));
+    }
 
     /**
      * Show the form for creating a new resource.

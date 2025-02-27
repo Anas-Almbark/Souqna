@@ -13,8 +13,8 @@
         </div>
         <div class="aside-nav collapse">
             <ul class="nav">
-                <li class="active"><a href="{{ route('supports.index') }}"><span class="icon"><i class="fas fa-fw fa-inbox"></i></span>Inbox<span class="badge badge-primary float-right">{{ $supports->whereNull('user_id')->count() }}</span></a></li>
-                <li><a href="{{ route('supports.usermessages') }}"><span class="icon"><i class="fas fa-fw fa-inbox"></i></span>Inbox<span class="badge badge-primary float-right">{{ $supports->whereNotNull('user_id')->count() }}</span></a></li>
+                <li><a href="#"><span class="icon"><i class="fas fa-fw fa-inbox"></i></span>Inbox<span class="badge badge-primary float-right">{{ $supports->whereNull('user_id')->count() }}</span></a></li>
+                <li class="active"><a href="#"><span class="icon active"><i class="fas fa-fw fa-inbox"></i></span>Inbox<span class="badge badge-primary float-right">{{ $supports->whereNotNull('user_id')->count() }}</span></a></li>
             </ul><span class="title">Labels</span>
 
             <div class="aside-compose"><a class="btn btn-lg btn-primary btn-block" href="#">Compose Email</a></div>

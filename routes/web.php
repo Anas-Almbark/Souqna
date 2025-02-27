@@ -4,9 +4,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\SupportController;
 use Illuminate\Support\Facades\Route;
-use Nette\Schema\Expect;
+use App\Http\Controllers\HomeController;
 
 
 Route::get('/dashboard', function () {
