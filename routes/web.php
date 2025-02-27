@@ -43,7 +43,7 @@ Route::middleware(['auth:admin'])->group(function () {
 
 Route::resource('products', ProductController::class);
 
-Route::middleware(['auth:admin'])->prefix('adminproducts')->group(function () {
+Route::middleware(['auth:admin,web'])->prefix('adminproducts')->group(function () {
     Route::get('/products', [ProductController::class, 'index'])->name('admin.products.index');
     Route::post('/products/approve/{id}', [ProductController::class, 'approve'])->name('admin.products.approve');
     Route::post('/products/reject/{id}', [ProductController::class, 'reject'])->name('admin.products.reject');
@@ -55,7 +55,7 @@ Route::resource('categories', CategoryController::class)->middleware('auth:admin
 
 Route::resource('supports', SupportController::class)->middleware(['auth:admin','auth'])->except('create');
 Route::get('/supports/create', [SupportController::class,'create'])->name('supports.create');
-Route::get('/supports/usermessages', [SupportController::class,'usermessages'])->middleware('auth:admin')->name('supports.usermessages');
+Route::get('/user/messages', [SupportController::class, 'usermessages'])->name('supports.usermessages');
 
 
 require __DIR__ . '/auth.php';

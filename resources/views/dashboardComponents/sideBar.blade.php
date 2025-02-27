@@ -68,7 +68,7 @@
                             </ul>
                         </div>
                         <li class="nav-item ">
-                            <a class="nav-link" href="{{ route('supports.create') }}" data-toggle="collapse"
+                            <a class="nav-link" href="{{ route('supports.index') }}" data-toggle="collapse"
                                 aria-expanded="false" data-target="#submenu-5" aria-controls="submenu-5"><i
                                     class="fa fa-fw fa-user-circle"></i>Support Messages <span
                                     class="badge badge-success">6</span></a>
@@ -78,7 +78,7 @@
                                         <a class="nav-link" href="{{ route('supports.index') }}"><i
                                                 class="fa fa-fw fa-user-circle"></i>Show Messages<span
                                                 class="badge badge-success">6</span></a>
-                                        <a class="nav-link" href="{{ route('supports.create') }}"><i
+                                        <a class="nav-link" href="#"><i
                                                 class="fa fa-fw fa-user-circle"></i>Add Categories<span
                                                 class="badge badge-success">6</span></a>
                                     </li>

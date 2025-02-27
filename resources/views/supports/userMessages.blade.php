@@ -13,8 +13,8 @@
         </div>
         <div class="aside-nav collapse">
             <ul class="nav">
-                <li><a href="#"><span class="icon"><i class="fas fa-fw fa-inbox"></i></span>Inbox<span class="badge badge-primary float-right">{{ $supports->whereNull('user_id')->count() }}</span></a></li>
-                <li class="active"><a href="#"><span class="icon active"><i class="fas fa-fw fa-inbox"></i></span>Inbox<span class="badge badge-primary float-right">{{ $supports->whereNotNull('user_id')->count() }}</span></a></li>
+                <li><a href="{{ route('supports.index') }}"><span class="icon"><i class="fas fa-fw fa-inbox"></i></span>Anonemus Inbox<span class="badge badge-primary float-right">{{ $supports->whereNull('user_id')->count() }}</span></a></li>
+                <li class="active"><a href="{{ route('supports.usermessages') }}"><span class="icon active"><i class="fas fa-fw fa-inbox"></i></span>Users Inbox<span class="badge badge-primary float-right">{{ $supports->whereNotNull('user_id')->count() }}</span></a></li>
             </ul><span class="title">Labels</span>
 
             <div class="aside-compose"><a class="btn btn-lg btn-primary btn-block" href="#">Compose Email</a></div>
@@ -23,11 +23,11 @@
 </aside>
 
                 <div class="main-content container-fluid p-0">
-                    @include("dashboardComponents.message")
+                    @include("supports.message")
                     <div class="email-inbox-header">
                         <div class="row">
                             <div class="col-lg-6">
-                                <div class="email-title"><span class="icon"><i class="fas fa-inbox"></i></span> Inbox <span class="new-messages">({{ $supports->count() }} new messages)</span> </div>
+                                <div class="email-title"><span class="icon"><i class="fas fa-inbox"></i></span> All Inbox <span class="new-messages">({{ $supports->count() }} new messages)</span> </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="email-search">
@@ -72,7 +72,7 @@
                     </div>
                     <div class="email-list">
 
-                        @foreach ($supports as $message)
+                        @foreach ($supports->whereNotNull('user_id') as $message)
                         <div class="email-list-item email-list-item--unread">
                             <div class="email-list-actions">
                                 <label class="custom-control custom-checkbox">
