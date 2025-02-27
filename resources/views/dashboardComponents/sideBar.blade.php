@@ -16,7 +16,6 @@
                                 class="fa fa-fw fa-user-circle"></i>Dashboard <span
                                 class="badge badge-success">6</span></a>
                     </li>
-                    @if (Auth::user()->role == 'superAdmin')
                     <li class="nav-item ">
                         <a class="nav-link" href="{{ route('admin.create') }}" data-toggle="collapse"
                             aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i
@@ -35,7 +34,6 @@
                             </ul>
                         </div>
                     </li>
-                    @endif
                     <li class="nav-item ">
                         <a class="nav-link" href="{{ route('categories.create') }}" data-toggle="collapse"
                             aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3"><i
@@ -55,24 +53,21 @@
                         </div>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="{{ route('supports.create') }}" data-toggle="collapse"
+                        <a class="nav-link" href="{{ route('products.index') }}" data-toggle="collapse"
                             aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-4"><i
-                                class="fa fa-fw fa-user-circle"></i>Support Messages <span
+                                class="fa fa-fw fa-box"></i>Products <span
                                 class="badge badge-success">6</span></a>
                         <div id="submenu-4" class="collapse submenu" style="">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('supports.index') }}"><i
-                                            class="fa fa-fw fa-user-circle"></i>Show Messages<span
+                                    <a class="nav-link" href="{{ route('products.index') }}"><i
+                                            class="fa fa-fw fa-list"></i>Show Products<span
                                             class="badge badge-success">6</span></a>
-                                    <a class="nav-link" href="{{ route('supports.create') }}"><i
-                                            class="fa fa-fw fa-user-circle"></i>Add Categories<span
-                                            class="badge badge-success">6</span></a>
+                                    
                                 </li>
                             </ul>
                         </div>
                     </li>
-                </ul>
             </div>
         </nav>
     </div>

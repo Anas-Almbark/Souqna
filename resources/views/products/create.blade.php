@@ -35,11 +35,23 @@
                 <!-- basic form -->
                 <!-- ============================================================== -->
                 <div class="col-xl-6 col-lg-6 col-md-8 col-sm-10 col-12">
+                    @if(session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     <div class="card mx-auto">
                         <h5 class="card-header">Basic Form</h5>
                         <div class="card-body">
+<<<<<<< HEAD
+                            <div class="alert alert-info" role="alert">
+                                Note: Your product will be reviewed by an administrator before being published.
+                            </div>
+                            <form action="{{ route('products.store') }}" id="basicform" method="POST" enctype="multipart/form-data">
+=======
                             <form action="{{ route('products.store') }}" id="basicform" method="POST"
                                 enctype="multipart/form-data">
+>>>>>>> 7a6ff9abc715a4755f819937d0f22c306653f7a9
                                 @csrf
                                 <div class="form-group">
                                     <label for="inputName">Name</label>
@@ -88,7 +100,6 @@
                                 </div>
 
                                 <div class="row">
-
                                     <div class="col pl-0">
                                         <p class="text-right">
                                             <button type="submit" class="btn btn-space btn-primary">Submit</button>

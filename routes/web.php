@@ -4,9 +4,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\SupportController;
 use Illuminate\Support\Facades\Route;
-use Nette\Schema\Expect;
+use App\Http\Controllers\HomeController;
 
 
 Route::get('/dashboard', function () {
@@ -47,6 +46,5 @@ Route::resource('categories', CategoryController::class)->middleware('auth:admin
 
 Route::resource('supports', SupportController::class)->middleware(['auth:admin','auth'])->except('create');
 Route::get('/supports/create', [SupportController::class,'create'])->name('supports.create');
-Route::get('/supports/usermessages', [SupportController::class,'usermessages'])->middleware('auth:admin')->name('supports.usermessages');
 
 require __DIR__ . '/auth.php';
