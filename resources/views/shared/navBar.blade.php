@@ -61,8 +61,12 @@
                     <ul class="nav-shop">
                         <li>
                             <a href="{{ route('profile.index') }}">
-                                <img src={{ asset(auth()->user()->photo ? Storage::url(auth()->user()->photo) : 'img/def.png') }}
-                                    class="rounded-circle" width="50" height="50" alt="UserImage">
+                              @if (auth()->user())
+                                <img src={{ asset(auth()->user()->photo ? Storage::url(auth()->user()->photo) : 'img/def.png') }} class="rounded-circle" width="50" height="50" alt="UserImage">
+                                @else
+                                    <img src="{{ asset('img/def.png') }}" class="rounded-circle" width="50" height="50" alt="UserImage">
+                                @endif
+                                    
                             </a>
                         </li>
                         @if (auth()->user())
