@@ -52,7 +52,22 @@
                             </ul>
                         </div>
                     </li>
-                </ul>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{ route('products.index') }}" data-toggle="collapse"
+                            aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-4"><i
+                                class="fa fa-fw fa-box"></i>Products <span
+                                class="badge badge-success">6</span></a>
+                        <div id="submenu-4" class="collapse submenu" style="">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('products.index') }}"><i
+                                            class="fa fa-fw fa-list"></i>Show Products<span
+                                            class="badge badge-success">6</span></a>
+                                    
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
             </div>
         </nav>
     </div>

@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 
 Route::get('/dashboard', function () {
@@ -43,6 +44,13 @@ Route::resource('products', ProductController::class);
 
 Route::resource('categories', CategoryController::class)->middleware('auth:admin');
 
+Route::middleware(['auth:admin'])->prefix('adminproducts')->group(function () {
+    Route::get('/products', [ProductController::class, 'index'])->name('admin.products.index');
+    Route::post('/products/approve/{id}', [ProductController::class, 'approve'])->name('admin.products.approve');
+    Route::post('/products/reject/{id}', [ProductController::class, 'reject'])->name('admin.products.reject');
+});
 
+Route::get('/', action: [HomeController::class, 'index'])->name('home.index');
+Route::get('/home', action: [HomeController::class, 'index'])->name('home.index');
 
 require __DIR__ . '/auth.php';

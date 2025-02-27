@@ -12,8 +12,15 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('photos')->get();
-        return view("products.index", compact("products"));
+        if (auth()->guard('admin')->check()) {
+            // If admin, show products pending approval
+            $products = Product::where('check', 0)->get();
+            return view('adminproducts.products', compact('products'));
+        } else {
+            // If regular user, show all approved products
+            $products = Product::with('photos')->where('check', 1)->get();
+            return view("products.index", compact("products"));
+        }
     }
 
     /**
@@ -28,30 +35,34 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'name' => 'required',
-            'price' => 'required',
-            'description' => 'required',
-            'photos.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5000',
-            'status' => 'required',
-        ]);
+{
+    $validated = $request->validate([
+        'name' => 'required',
+        'price' => 'required',
+        'description' => 'required',
+        'photos.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5000',
+        'status' => 'required',
+    ]);
 
-        // إنشاء المنتج
-        $product = Product::create(array_merge($validated, ['user_id' => auth()->id()]));
+    // إضافة المنتج مع تعيين `check` إلى 0 (قيد المراجعة)
+    $product = Product::create(array_merge($validated, [
+        'user_id' => auth()->id(),
+        'check' => 0, // المنتج قيد المراجعة
+    ]));
 
-        // رفع الصور إن وجدت
-        if ($request->hasFile('photos')) {
-            foreach ($request->file('photos') as $photo) {
-                ProductPhoto::create([
-                    'product_id' => $product->id,
-                    'url' => $photo->store('products', 'public'),
-                ]);
-            }
+    // رفع الصور إن وجدت
+    if ($request->hasFile('photos')) {
+        foreach ($request->file('photos') as $photo) {
+            ProductPhoto::create([
+                'product_id' => $product->id,
+                'url' => $photo->store('products', 'public'),
+            ]);
         }
-
-        return back()->with('success', 'Added successfully');
     }
+
+    return back()->with('success', 'The product has been sent for review.');
+}
+
 
     /**
      * Display the specified resource.
@@ -109,4 +120,26 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->route('home.index')->with('success', 'Product deleted successfully');
     }
+
+
+    public function approve($id)
+{
+    $product = Product::findOrFail($id);
+    $product->update(['check' => 1]); // الموافقة على المنتج
+    return back()->with('success', 'The product is approved');
+}
+
+public function reject($id)
+{
+    $product = Product::findOrFail($id);
+    $product->update(['check' => 2]); // رفض المنتج
+    return back()->with('error', 'The product is rejected');
+}
+// public function homeindex()
+// {
+//     $products = Product::with(['photos', 'categories'])
+//         ->where('check', 1)
+//         ->get();
+//     return view('shared.home', compact('products'));
+// }
 }
