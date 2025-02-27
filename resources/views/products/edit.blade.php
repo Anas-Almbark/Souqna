@@ -1,13 +1,7 @@
 @extends('layout')
 @section('content')
-    <!-- ============================================================== -->
-    <!-- wrapper  -->
-    <!-- ============================================================== -->
     <div class="dashboard-wrapper">
         <div class="container-fluid  dashboard-content">
-            <!-- ============================================================== -->
-            <!-- pageheader -->
-            <!-- ============================================================== -->
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="page-header">
@@ -26,40 +20,41 @@
                     </div>
                 </div>
             </div>
-            <!-- ============================================================== -->
-            <!-- end pageheader -->
-            <!-- ============================================================== -->
             <div class="row justify-content-center">
-                <!-- ============================================================== -->
-                <!-- basic form -->
-                <!-- ============================================================== -->
                 <div class="col-xl-6 col-lg-6 col-md-8 col-sm-10 col-12">
                     <div class="card mx-auto">
                         <h5 class="card-header">Basic Form</h5>
                         <div class="card-body">
-                            <form action="{{ route('products.update', $product->id) }}" id="basicform" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('products.update', $product->id) }}" id="basicform" method="POST"
+                                enctype="multipart/form-data">
                                 @method('PUT')
                                 @csrf
                                 <div class="form-group">
                                     <label for="inputName">Name</label>
-                                    <input id="inputName" type="text" name="name" data-parsley-trigger="change" required
-                                        placeholder="Enter name" autocomplete="off" class="form-control" value="{{ $product->name }}">
+                                    <input id="inputName" type="text" name="name" data-parsley-trigger="change"
+                                        required placeholder="Enter name" autocomplete="off" class="form-control"
+                                        value="{{ $product->name }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="inputDescription">description</label>
-                                    <input id="inputDescription" type="text" name="description" data-parsley-trigger="change"
-                                         placeholder="Enter description" autocomplete="off" class="form-control" value="{{ $product->description }}">
+                                    <input id="inputDescription" type="text" name="description"
+                                        data-parsley-trigger="change" placeholder="Enter description" autocomplete="off"
+                                        class="form-control" value="{{ $product->description }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="inputPrice">Price</label>
-                                    <input id="inputPrice" type="text" name="price" placeholder="Price"  class="form-control" value="{{ $product->price }}">
+                                    <input id="inputPrice" type="text" name="price" placeholder="Price"
+                                        class="form-control" value="{{ $product->price }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="inputStatus">Status</label>
                                     <select id="inputStatus" name="status" class="form-control">
                                         <option value="">Select Status</option>
-                                        <option value="available" {{ $product->status === 'available' ? 'selected' : '' }}>Available</option>
-                                        <option value="Not available" {{ $product->status === 'Not available' ? 'selected' : '' }}>Not Available</option>
+                                        <option value="available" {{ $product->status === 'available' ? 'selected' : '' }}>
+                                            Available</option>
+                                        <option value="Not available"
+                                            {{ $product->status === 'Not available' ? 'selected' : '' }}>Not Available
+                                        </option>
                                     </select>
                                 </div>
                                 {{-- هنا يوجد خطأ فني يحتاج الى صيانة --}}
@@ -99,11 +94,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- ============================================================== -->
-                <!-- end basic form -->
-                <!-- ============================================================== -->
             </div>
         </div>
     </div>
-
 @endsection

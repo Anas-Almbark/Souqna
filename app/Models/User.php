@@ -69,10 +69,6 @@ class User extends Authenticatable
     }
     public function contacts()
     {
-        return $this->hasMany(Contact::class, 'user_id');
-    }
-    public function isActiveAccount()
-    {
-        return $this->middleware('activeAccount');
+        return $this->hasMany(Contact::class);
     }
 }

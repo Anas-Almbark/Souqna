@@ -1,69 +1,38 @@
 @extends('layout')
 @section('content')
-    <!-- ============================================================== -->
-    <!-- wrapper  -->
-    <!-- ============================================================== -->
     <div class="dashboard-wrapper">
         <div class="container-fluid  dashboard-content">
-            <!-- ============================================================== -->
-            <!-- pageheader -->
-            <!-- ============================================================== -->
-            <div class="row">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <div class="page-header">
-                        <h2 class="pageheader-title">Form Validations
-                        </h2>
-                        <div class="page-breadcrumb">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{ route('home.index') }}"
-                                            class="breadcrumb-link">home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Form
-                                        Validations</li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- ============================================================== -->
-            <!-- end pageheader -->
-            <!-- ============================================================== -->
             <div class="row justify-content-center">
-                <!-- ============================================================== -->
-                <!-- basic form -->
-                <!-- ============================================================== -->
                 <div class="col-xl-6 col-lg-6 col-md-8 col-sm-10 col-12">
-                    @if(session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-                    <div class="card mx-auto">
-                        <h5 class="card-header">Basic Form</h5>
+                    @include('shared.message')
+                    <div class="card mx-auto my-5">
+                        <h5 class="card-header"> Add new product </h5>
                         <div class="card-body">
                             <div class="alert alert-info" role="alert">
                                 Note: Your product will be reviewed by an administrator before being published.
                             </div>
-                            <form action="{{ route('products.store') }}" id="basicform" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('products.store') }}" id="basicform" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <label for="inputName">Name</label>
-                                    <input id="inputName" type="text" name="name" data-parsley-trigger="change" required
-                                        placeholder="Enter name" autocomplete="off" class="form-control">
+                                    <input id="inputName" type="text" name="name" data-parsley-trigger="change"
+                                        required placeholder="Enter name" autocomplete="off" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label for="inputDescription">description</label>
-                                    <input id="inputDescription" type="text" name="description" data-parsley-trigger="change"
-                                        required placeholder="Enter description" autocomplete="off" class="form-control">
+                                    <input id="inputDescription" type="text" name="description"
+                                        data-parsley-trigger="change" required placeholder="Enter description"
+                                        autocomplete="off" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label for="inputPrice">Price</label>
-                                    <input id="inputPrice" type="text" name="price" placeholder="Price" required class="form-control">
+                                    <input id="inputPrice" type="text" name="price" placeholder="Price" required
+                                        class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label for="inputStatus">Status</label>
-                                    <select id="inputStatus" name="status" class="form-control" required>
+                                    <select id="inputStatus" name="status" class="form-control w-100" required>
                                         <option value="">Select Status</option>
                                         <option value="available">Available</option>
                                         <option value="Not available">Not Available</option>
@@ -72,7 +41,7 @@
                                 {{-- هنا يوجد خطأ فني يحتاج الى صيانة --}}
                                 <div class="form-group">
                                     <label for="categories">Categories</label>
-                                    <select id="categories" name="categories[]" multiple class="form-control">
+                                    <select id="categories" name="categories[]" multiple class="form-control w-100">
                                         <option value="electronics">Electronics</option>
                                         <option value="clothing">Clothing</option>
                                         <option value="books">Books</option>
@@ -105,11 +74,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- ============================================================== -->
-                <!-- end basic form -->
-                <!-- ============================================================== -->
             </div>
         </div>
     </div>
-
 @endsection
