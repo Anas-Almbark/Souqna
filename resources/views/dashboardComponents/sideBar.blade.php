@@ -62,11 +62,12 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('products.index') }}"><i
                                             class="fa fa-fw fa-list"></i>Show Products<span
-                                            class="badge badge-success">6</span></a>
-                                    
+                                            class="badge badge-success">6</span></a>                                    
                                 </li>
+
                             </ul>
                         </div>
+
                     </li>
             </div>
         </nav>
