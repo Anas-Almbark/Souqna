@@ -43,7 +43,7 @@ Route::middleware(['auth:admin'])->group(function () {
 
 Route::resource('products', ProductController::class);
 
-Route::middleware(['auth:admin,web'])->prefix('adminproducts')->group(function () {
+Route::middleware(['auth:admin'])->prefix('adminproducts')->group(function () {
     Route::get('/products', [ProductController::class, 'index'])->name('admin.products.index');
     Route::post('/products/approve/{id}', [ProductController::class, 'approve'])->name('admin.products.approve');
     Route::post('/products/reject/{id}', [ProductController::class, 'reject'])->name('admin.products.reject');
