@@ -47,5 +47,6 @@ Route::resource('categories', CategoryController::class)->middleware('auth:admin
 
 Route::resource('supports', SupportController::class)->middleware(['auth:admin','auth'])->except('create');
 Route::get('/supports/create', [SupportController::class,'create'])->name('supports.create');
+Route::get('/supports/usermessages', [SupportController::class,'usermessages'])->middleware('auth:admin')->name('supports.usermessages');
 
 require __DIR__ . '/auth.php';
