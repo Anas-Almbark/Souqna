@@ -79,27 +79,31 @@
                     </div>
                 </div>
                 <div class="w-full md:w-9/12 mx-2">
-                    <div class="bg-gray-200 p-3 rounded-lg grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"> <a
-                            href="">
-                            <div class="bg-white rounded-xl border border-blue-300">
-                                <div
-                                    class="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white bg-clip-border rounded-xl">
-                                    <img src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=927&amp;q=80"
-                                        alt="card-image" class="object-cover w-full h-full" />
-                                </div>
-                                <div class="p-6">
-                                    <div class="flex items-center justify-between mb-2">
-                                        <p
-                                            class="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
-                                            Apple AirPods </p>
-                                        <p
-                                            class="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
-                                            $95.00 </p>
+                    <div class="bg-gray-200 p-3 rounded-lg grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        @forelse ($user->products as $product)
+                            <a href="">
+                                <div class="bg-white rounded-xl border border-blue-300">
+                                    <div
+                                        class="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white bg-clip-border rounded-xl">
+                                        <img src="{{ Storage::url($product->photos->first()->url) }}" alt="card-image"
+                                            class="object-cover w-full h-full" />
                                     </div>
+                                    <div class="p-6">
+                                        <div class="flex items-center justify-between mb-2">
+                                            <p
+                                                class="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
+                                                {{ $product->name }} </p>
+                                            <p
+                                                class="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
+                                                ${{ $product->price }} </p>
+                                        </div>
+                                    </div>
+                                    <div class="p-6 pt-0"> {{-- <span> {{ $user->product->created_at->diffForHumans() }} </span> --}} </div>
                                 </div>
-                                <div class="p-6 pt-0"> {{-- <span> {{ $user->product->created_at->diffForHumans() }} </span> --}} </div>
-                            </div>
-                        </a> </div>
+                            </a>
+                        @empty
+                        @endforelse
+                    </div>
                 </div>
             </div>
         </div>
