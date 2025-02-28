@@ -45,7 +45,8 @@
                                 <ul class="dropdown-menu">
                                     <li class="nav-item"><a class="nav-link" href="{{ route('products.create') }}">Add
                                             Product</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="{{ route('products.index') }}">View
+                                    <li class="nav-item"><a class="nav-link"
+                                            href="{{ route('productsUser.index') }}">View
                                             Products</a></li>
 
 

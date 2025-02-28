@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function () {
 Route::view("/", "shared.home")->name("home.index");
 Route::view("/home", "shared.home")->name("home.index");
 
-Route::view("/products/shopcategory", "shared.shopCategory")->name("products.index");
+Route::view("/products/shopcategory", "shared.shopCategory")->name("productsUser.index");
 Route::view("/product/shopsingle", "shared.shopSingle")->name("product.index");
 
 Route::view("/connect", "shared.connect")->name("connect.index");
