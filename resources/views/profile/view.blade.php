@@ -4,11 +4,18 @@
             <div class="md:flex wrap md:-mx-2 ">
                 <div class="w-full md:w-3/12 md:mx-2">
                     <div class="bg-white p-3 border-t-4 border-blue-400">
-                        @can('active-account')
-                            <span class="d-block w-fit bg-red-500 rounded text-white border border-red-500 p-2 my-2"> not
+                        @cannot('active-account')
+                            <span class="d-block w-fit bg-red-500 rounded text-white border border-red-500 p-2 my-2"> Not
                                 active
                             </span>
                         @endcan
+                        @if (!$user->is_active && !$user->isActive())
+                            <span class="d-block w-fit bg-orange-500 rounded text-white border p-2 my-2">
+                                Your account activation request is being reviewed
+                                <div class="inline-block animate-spin rounded-full h-4 w-4 border-t-2 border-white ml-2">
+                                </div>
+                            </span>
+                        @endif
                         <div class="eval-star my-2 mb-4 text-center"> <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
                             <i class="fa-solid fa-star" style="color: #FFD43B;"></i> <i class="fa-solid fa-star"
                                 style="color: #FFD43B;"></i> <i class="fa-solid fa-star" style="color: #FFD43B;"></i> <i

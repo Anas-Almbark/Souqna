@@ -10,7 +10,7 @@
                     <input type="text" name="name" id="name" placeholder="username"
                         class="w-full border border-gray-300 py-2 pl-3 rounded mt-2 outline-none focus:ring-indigo-600 :ring-indigo-600" />
                 </div>
-                @if ($user->updated_at->addMonth()->isPast())
+                @if ($user->updated_at->addMonth()->isPast() || !$user->location)
                     <div class="mb-6">
                         <label for="location" class="block text-gray-800 font-bold">Location:</label>
                         <input type="text" name="location" id="location" placeholder="Your location"

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActiveAccountController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
@@ -23,7 +24,7 @@ Route::middleware('auth')->group(function () {
 Route::view("/", "shared.home")->name("home.index");
 Route::view("/home", "shared.home")->name("home.index");
 
-Route::view("/products/shopcategory", "shared.shopCategory")->name("products.index");
+Route::view("/products/shopcategory", "shared.shopCategory")->name("productsUser.index");
 Route::view("/product/shopsingle", "shared.shopSingle")->name("product.index");
 
 Route::view("/connect", "shared.connect")->name("connect.index");
@@ -57,5 +58,11 @@ Route::resource('supports', SupportController::class)->except('create');
 Route::get('/supports/create', [SupportController::class, 'create'])->name('supports.create');
 Route::get('/user/messages', [SupportController::class, 'usermessages'])->name('supports.usermessages');
 
+Route::middleware('auth:admin')->group(function () {
+    Route::get('view/accounts', [ActiveAccountController::class, 'index'])->name('active.index');
+    Route::get('show/account/{user}', [ActiveAccountController::class, 'show'])->name('active.show');
+    Route::put('rejected/account/{user}', [ActiveAccountController::class, 'rejected'])->name('active.reject');
+    Route::put('accepted/account/{user}', [ActiveAccountController::class, 'accepted'])->name('active.accept');
+});
 
 require __DIR__ . '/auth.php';
