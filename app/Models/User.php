@@ -71,4 +71,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Contact::class);
     }
+    public function isActive()
+    {
+        return !$this->identity || !$this->contacts->first()?->phone_primary || !$this->location;
+    }
 }

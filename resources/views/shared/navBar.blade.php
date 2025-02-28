@@ -1,6 +1,6 @@
 <header class="header_area">
     <div class="main_menu">
-        <nav class="navbar navbar-expand-lg navbar-light d-flex align-items-center">
+        <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container">
                 <a class="navbar-brand logo_h" href="{{ route('home.index') }}"><img src="{{ asset('img/logo.png') }}"
                         alt="logo" width="180"></a>
@@ -11,7 +11,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse offset d-flex align-items-center" id="navbarSupportedContent">
                     <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
                         <li class="nav-item active"><a class="nav-link" href="{{ route('home.index') }}">Home</a></li>
                         <li class="nav-item submenu dropdown">
@@ -57,16 +57,16 @@
                         @endif
                         <li class="nav-item"><a class="nav-link" href="{{ route('connect.index') }}">Contact</a></li>
                     </ul>
-
-                    <ul class="nav-shop">
+                    <ul class="nav-shop d-flex align-items-center">
                         <li>
                             <a href="{{ route('profile.index') }}">
-                              @if (auth()->user())
-                                <img src={{ asset(auth()->user()->photo ? Storage::url(auth()->user()->photo) : 'img/def.png') }} class="rounded-circle" width="50" height="50" alt="UserImage">
-                                @else
-                                    <img src="{{ asset('img/def.png') }}" class="rounded-circle" width="50" height="50" alt="UserImage">
+                                @if (auth()->user())
+                                    <img src={{ asset(auth()->user()->photo ? Storage::url(auth()->user()->photo) : 'img/def.png') }}
+                                        class="rounded-circle object-fit-cover"
+                                        style="aspect-ratio: 1; border-radius: 50%;" width="50" height="50"
+                                        alt="UserImage">
                                 @endif
-                                    
+
                             </a>
                         </li>
                         @if (auth()->user())

@@ -16,7 +16,7 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/profile/view', [ProfileController::class, 'index'])->name('profile.index');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/{user}', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
@@ -53,8 +53,8 @@ Route::get('/', action: [HomeController::class, 'index'])->name('home.index');
 Route::get('/home', action: [HomeController::class, 'index'])->name('home.index');
 Route::resource('categories', CategoryController::class)->middleware('auth:admin');
 
-Route::resource('supports', SupportController::class)->middleware(['auth:admin','auth'])->except('create');
-Route::get('/supports/create', [SupportController::class,'create'])->name('supports.create');
+Route::resource('supports', SupportController::class)->middleware(['auth:admin', 'auth'])->except('create');
+Route::get('/supports/create', [SupportController::class, 'create'])->name('supports.create');
 Route::get('/user/messages', [SupportController::class, 'usermessages'])->name('supports.usermessages');
 
 

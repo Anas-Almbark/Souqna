@@ -4,11 +4,11 @@
             <div class="md:flex wrap md:-mx-2 ">
                 <div class="w-full md:w-3/12 md:mx-2">
                     <div class="bg-white p-3 border-t-4 border-blue-400">
-                        @if ($isActive)
+                        @can('active-account')
                             <span class="d-block w-fit bg-red-500 rounded text-white border border-red-500 p-2 my-2"> not
                                 active
                             </span>
-                        @endif
+                        @endcan
                         <div class="eval-star my-2 mb-4 text-center"> <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
                             <i class="fa-solid fa-star" style="color: #FFD43B;"></i> <i class="fa-solid fa-star"
                                 style="color: #FFD43B;"></i> <i class="fa-solid fa-star" style="color: #FFD43B;"></i> <i
@@ -42,34 +42,36 @@
                                         {{ $user->location }}</span>
                                 </li>
                             @endif
-                            @if ($user->contacts->first()->phone_primary)
+                            @if ($user->contacts->first()?->phone_primary)
                                 <li>
-                                    <a href="" class="d-block flex items-center py-2 px-2 rounded"> <i
+                                    <a href="tell:{{ $user->contacts->first()->phone_primary }}"
+                                        class="d-block flex items-center py-2 px-2 rounded"> <i
                                             class="fa-solid fa-phone mr-1"></i>
                                         Phone: {{ $user->contacts->first()->phone_primary }} </a>
                                 </li>
                             @endif
-                            @if ($user->contacts->first()->phone_second)
+                            @if ($user->contacts->first()?->phone_second)
                                 <li>
-                                    <a href="" class="mb-2 flex items-center py-2 px-2 rounded">
+                                    <a href="tell:{{ $user->contacts->first()->phone_second }}"
+                                        class="mb-2 flex items-center py-2 px-2 rounded">
                                         <i class="fa-solid fa-phone mr-1"></i>
                                         Phone Secondary: {{ $user->contacts->first()->phone_second }} </a>
                                 </li>
                             @endif
                             <li>
-                                @if ($user->contacts->first()->facebook)
+                                @if ($user->contacts->first()?->facebook)
                                     <a href="{{ $user->contacts->first()->facebook }}" target="_blank"
                                         class ="text-blue-500 text-lg hover:text-blue-700 ml-3"><i
                                             class="fa-brands fa-square-facebook"></i>
                                     </a>
                                 @endif
-                                @if ($user->contacts->first()->instagram)
+                                @if ($user->contacts->first()?->instagram)
                                     <a href="{{ $user->instagram }}" target="_blank" target="_blank"
                                         class ="text-pink-500 text-lg hover:text-pink-700 mx-3"><i
                                             class="fa-brands fa-square-instagram"></i>
                                     </a>
                                 @endif
-                                @if ($user->contacts->first()->tiktok)
+                                @if ($user->contacts->first()?->tiktok)
                                     <a href="{{ $user->tiktok }}" target="_blank" class="text-black text-lg">
                                         <i class="fa-brands fa-tiktok"></i>
                                     </a>
@@ -81,17 +83,17 @@
                 <div class="w-full md:w-9/12 mx-2">
                     <div class="bg-gray-200 p-3 rounded-lg grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         @forelse ($user->products as $product)
-                            <a href="">
-                                <div class="bg-white rounded-xl border border-blue-300">
+                            <a href="" class="block h-full">
+                                <div class="bg-white rounded-xl border border-blue-300 h-full flex flex-col">
                                     <div
-                                        class="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white bg-clip-border rounded-xl">
+                                        class="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white bg-clip-border rounded-xl h-48">
                                         <img src="{{ Storage::url($product->photos->first()->url) }}" alt="card-image"
                                             class="object-cover w-full h-full" />
                                     </div>
-                                    <div class="p-6">
+                                    <div class="p-6 flex-grow">
                                         <div class="flex items-center justify-between mb-2">
                                             <p
-                                                class="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
+                                                class="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900 truncate">
                                                 {{ $product->name }} </p>
                                             <p
                                                 class="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
@@ -102,6 +104,7 @@
                                 </div>
                             </a>
                         @empty
+                            <p class="text-center text-gray-500">No products found</p>
                         @endforelse
                     </div>
                 </div>

@@ -2,7 +2,7 @@
 @section('content')
     <div class="flex justify-center pb-5">
         <div class="py-6 px-8 w-50 h-80 mt-20 bg-white rounded shadow-xl">
-            <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('profile.update', $user) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="mb-6">

@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
@@ -17,18 +18,14 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $isActive = true;
-        if ($user->identity || $user->contacts->first()?->phone_primary || $user->location) {
-            $isActive = false;
-        }
-        return view('profile.view', compact('user', "isActive"));
+        return view('profile.view', compact('user'));
     }
     public function edit(Request $request): View
     {
         $user = $request->user();
         return view('profile.edit', compact('user'));
     }
-    public function update(Request $request)
+    public function update(Request $request, User $user)
     {
         $user = User::find(Auth::id());
         $validation = $request->validate([
@@ -56,11 +53,11 @@ class ProfileController extends Controller
 
         if ($request->hasFile('identity')) {
             Storage::disk('public')->delete($user->identity ?? '');
-            $user->identity = $request->file('identity')->store('identity_user', 'public');
+            $user->identity = $validation['identity']->store('identity_user', 'public');
         }
         if ($request->hasFile('photo')) {
             Storage::disk('public')->delete($user->photo ?? '');
-            $user->photo = $request->file('photo')->store('photo_user', 'public');
+            $user->photo = $validation['photo']->store('photo_user', 'public');
         }
         $user->save();
         return redirect()->route('profile.index')->with('success', 'Profile updated successfully');
