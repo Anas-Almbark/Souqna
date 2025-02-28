@@ -17,22 +17,19 @@ class FollowController extends Controller
             'follower_id' => $user->id,
             'following_id' => $id,
         ]);
-
-        $notification = new Notification();
-        $notification->receiver_id = $id;
-        $notification->sender_id = $user->id;
-        $notification->message = "$user->name followed you";
-        $notification->save();
-
+        Notification::create([
+            'receiver_id' => $id,
+            'sender_id' => $user->id,
+            'message' => "$user->name followed you",
+        ]);;
         return redirect()->back();
     }
 
     public function unfollow($id)
     {
         $user = Auth::user();
-
         Follow::where('follower_id', $user->id)->where('following_id', $id)->delete();
-
+        Notification::where('receiver_id', $id)->where('sender_id', $user->id)->delete();
         return redirect()->back();
     }
 }

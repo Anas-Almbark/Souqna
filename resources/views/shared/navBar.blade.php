@@ -91,7 +91,7 @@
                                         Notifications
                                     </div>
                                     <div class="divide-y divide-gray-100 dark:divide-gray-700">
-                                        @forelse ($user->receivedNotifications as $natification)
+                                        @forelse ($user->receivedNotifications->sortByDesc('created_at') as $natification)
                                             <a href="#"
                                                 class="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
                                                 <div class="shrink-0 mr-3">
