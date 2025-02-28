@@ -23,8 +23,8 @@ Route::middleware('auth')->group(function () {
 Route::view("/", "shared.home")->name("home.index");
 Route::view("/home", "shared.home")->name("home.index");
 
-Route::view("/products", "shared.shopCategory")->name("products.index");
-Route::view("/product", "shared.shopSingle")->name("product.index");
+Route::view("/products/shopcategory", "shared.shopCategory")->name("products.index");
+Route::view("/product/shopsingle", "shared.shopSingle")->name("product.index");
 
 Route::view("/connect", "shared.connect")->name("connect.index");
 Route::view("/tracking", "shared.tracking")->name("tracking.index");
