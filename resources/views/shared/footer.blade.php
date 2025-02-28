@@ -4,15 +4,12 @@
         <div class="row section_gap">
           <div class="col-lg-3 col-md-6 col-sm-6">
             <div class="single-footer-widget tp_widgets">
-              <h4 class="footer_title large_title">Our Mission</h4>
+              <h4 class="footer_title large_title">SOUQNA</h4>
               <p>
-                So seed seed green that winged cattle in. Gathering thing made
-                fly you're no divided deep moved us lan Gathering thing us
-                land years living.
+                Used Market – Your secure platform to buy and sell used products easily. We provide a trusted environment for users with ads reviewed before publishing to ensure quality.
               </p>
               <p>
-                So seed seed green that winged cattle in. Gathering thing made
-                fly you're no divided deep moved
+                What are you waiting for let's start shopping together
               </p>
             </div>
           </div>
@@ -21,9 +18,9 @@
               <h4 class="footer_title">Quick Links</h4>
               <ul class="list">
                 <li><a href={{ route("home.index") }}>Home</a></li>
-                <li><a href="#">Shop</a></li>
+                <li><a href="{{ route('products.index') }}">Shop</a></li>
                 <li><a href="#">Blog</a></li>
-                <li><a href="#">Product</a></li>
+                <li><a href="{{ route('login') }}">Product</a></li>
                 <li><a href="#">Brand</a></li>
                 <li><a href="{{ route("connect.index") }}">Contact</a></li>
               </ul>
@@ -35,10 +32,10 @@
               <ul class="list instafeed d-flex flex-wrap">
                 <li><img src="img/gallery/r1.jpg" alt="" /></li>
                 <li><img src="img/gallery/r2.jpg" alt="" /></li>
-                <li><img src="img/gallery/r3.jpg" alt="" /></li>
-                <li><img src="img/gallery/r5.jpg" alt="" /></li>
                 <li><img src="img/gallery/r7.jpg" alt="" /></li>
-                <li><img src="img/gallery/r8.jpg" alt="" /></li>
+                <li><img src="img/gallery/r1.jpg" alt="" /></li>
+                <li><img src="" alt="" /></li>
+                <li><img src="" alt="" /></li>
               </ul>
             </div>
           </div>
@@ -50,15 +47,16 @@
                   <span class="fa fa-location-arrow"></span>
                   Head Office
                 </p>
-                <p>123, Main Street, Your City</p>
+                <p>01, Main Street, Syria-Aleppo</p>
 
                 <p class="sm-head">
                   <span class="fa fa-phone"></span>
                   Phone Number
                 </p>
                 <p>
-                  +123 456 7890 <br />
-                  +123 456 7890
+                  +963994644239  <br />
+                  +447859340105  <br />
+                  +963954262207
                 </p>
 
                 <p class="sm-head">
@@ -66,8 +64,8 @@
                   Email
                 </p>
                 <p>
-                  free@infoexample.com <br />
-                  www.infoexample.com
+                  souqna@support.com <br />
+                  www.souqna.com
                 </p>
               </div>
             </div>
@@ -85,9 +83,9 @@
             <script>
               document.write(new Date().getFullYear());
             </script>
-            All rights reserved | This template is made with
+            All rights reserved | made with
             <i class="fa fa-heart" aria-hidden="true"></i> by
-            <a href="https://colorlib.com" target="_blank">Colorlib</a>
+            <a href="https://github.com/Anas-Almbark/Souqna.git" target="_blank">Colorlib</a>
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
           </p>
         </div>

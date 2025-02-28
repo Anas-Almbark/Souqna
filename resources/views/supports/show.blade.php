@@ -2,7 +2,9 @@
 @section("content")
         <!-- ============================================================== -->
         <!-- wrapper  -->
-        <!-- ============================================================== -->                    
+        <!-- ============================================================== -->    
+        <div
+        class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">              
                         <div class="email-head">
                             <div class="email-head-subject">
                                 <div class="title"><a class="active" href="#"><span class="icon"><i class="fas fa-star"></i></span></a> <span>{{ $support->subject }}</span>
@@ -37,4 +39,45 @@
                             <p><strong>Regards</strong>,
                                 <br> {{ $support->name }}</p>
                         </div>
+                    </div>
+ 
+
+                                                <!-- ============================================================== -->
+                        <!-- horizontal form -->
+                        <!-- ============================================================== -->
+                        <div
+                            class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="card">
+                                <h5 class="card-header">Reply</h5>
+                                <div class="card-body">
+                                    <form id="form" action="#" method="post" data-parsley-validate
+                                        novalidate>
+                                        @csrf
+                                        <div class="form-group row">
+                                            <div class="col-12 col-lg-12">
+                                                <textarea id="inputWebSite"
+                                                    name="response"
+                                                    type="text" required
+                                                    data-parsley-type="message"
+                                                    placeholder="Message..."
+                                                    class="form-control"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row pt-2 pt-sm-5 mt-1">
+                                            <div class="col-sm-6 pl-0">
+                                                <p class="text-right">
+                                                    <button type="submit"
+                                                        class="btn btn-space btn-primary">Send</button>
+                                                    <button
+                                                        class="btn btn-space btn-secondary">Cancel</button>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ============================================================== -->
+                        <!-- end horizontal form -->
+                        <!-- ============================================================== -->
    @endsection
