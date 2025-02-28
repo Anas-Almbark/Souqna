@@ -9,13 +9,14 @@ use App\Http\Controllers\SupportController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\FollowController;
 
 Route::get('/dashboard', function () {
     return view('dashboardComponents.homeDashboard');
 })->middleware(['auth:admin', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile/view', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('/profile/view/{user}', [ProfileController::class, 'index'])->name('profile.index');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile/{user}', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -66,8 +67,11 @@ Route::middleware('auth:admin')->group(function () {
     Route::put('accepted/account/{user}', [ActiveAccountController::class, 'accepted'])->name('active.accept');
 });
 
+Route::get('notification', [NotificationController::class, 'index'])->middleware('auth')->name('notification.index');
 
 Route::middleware('auth')->group(function () {
-    Route::get('notification', [NotificationController::class, 'index'])->name('notification.index');
+    Route::post('/follow/{id}', [FollowController::class, 'follow'])->name('follow');
+    Route::post('/unfollow/{id}', [FollowController::class, 'unfollow'])->name('unfollow');
 });
+
 require __DIR__ . '/auth.php';
