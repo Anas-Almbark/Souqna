@@ -14,66 +14,58 @@
                 </li>
                 <li class="nav-item dropdown notification">
                     <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span
-                            class="indicator"></span></a>
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-fw fa-bell"></i>
+                        @php
+                            $notificationCount = count($supports->where('response', null)) + count($pendingProducts);
+                        @endphp
+                        @if($notificationCount > 0)
+                            <span class="badge badge-danger" style="position: absolute; top: 0; right: 0; font-size: 0.8em;">{{ $notificationCount }}</span>
+                        @endif
+                    </a>
                     <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
                         <li>
-                            <div class="notification-title"> Notification</div>
+                            <div class="notification-title"> Notifications ({{ $notificationCount }})</div>
                             <div class="notification-list">
                                 <div class="list-group">
-                                    <a href="#" class="list-group-item list-group-item-action active">
-                                        <div class="notification-info">
-                                            <div class="notification-list-user-img"><img
-                                                    src="assets/images/avatar-2.jpg" alt=""
-                                                    class="user-avatar-md rounded-circle"></div>
-                                            <div class="notification-list-user-block"><span
-                                                    class="notification-list-user-name">Jeremy Rakestraw</span>accepted
-                                                your invitation to join the team.
-                                                <div class="notification-date">2 min ago</div>
+                                    @foreach($supports as $support)
+                                        @if($support->response === null)
+                                            <a href="{{ route('supports.show', $support->id) }}" class="list-group-item list-group-item-action">
+                                                <div class="notification-info">
+                                                    <div class="notification-list-user-img">
+                                                        <i class="fas fa-envelope fa-2x"></i>
+                                                    </div>
+                                                    <div class="notification-list-user-block">
+                                                        <span class="notification-list-user-name">{{ $support->name }}</span>
+                                                        needs support response
+                                                        <div class="notification-date">{{ $support->created_at->diffForHumans() }}</div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        @endif
+                                    @endforeach
+
+                                    @foreach($pendingProducts as $product)
+                                        <a href="{{ route('admin.products.index') }}" class="list-group-item list-group-item-action">
+                                            <div class="notification-info">
+                                                <div class="notification-list-user-img">
+                                                    <i class="fas fa-shopping-cart fa-2x"></i>
+                                                </div>
+                                                <div class="notification-list-user-block">
+                                                    <span class="notification-list-user-name">{{ $product->name }}</span>
+                                                    needs approval
+                                                    <div class="notification-date">{{ $product->created_at->diffForHumans() }}</div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        <div class="notification-info">
-                                            <div class="notification-list-user-img"><img
-                                                    src="assets/images/avatar-3.jpg" alt=""
-                                                    class="user-avatar-md rounded-circle"></div>
-                                            <div class="notification-list-user-block"><span
-                                                    class="notification-list-user-name">John Abraham </span>is now
-                                                following you
-                                                <div class="notification-date">2 days ago</div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        <div class="notification-info">
-                                            <div class="notification-list-user-img"><img
-                                                    src="assets/images/avatar-4.jpg" alt=""
-                                                    class="user-avatar-md rounded-circle"></div>
-                                            <div class="notification-list-user-block"><span
-                                                    class="notification-list-user-name">Monaan Pechi</span> is watching
-                                                your main repository
-                                                <div class="notification-date">2 min ago</div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        <div class="notification-info">
-                                            <div class="notification-list-user-img"><img
-                                                    src="assets/images/avatar-5.jpg" alt=""
-                                                    class="user-avatar-md rounded-circle"></div>
-                                            <div class="notification-list-user-block"><span
-                                                    class="notification-list-user-name">Jessica Caruso</span>accepted
-                                                your invitation to join the team.
-                                                <div class="notification-date">2 min ago</div>
-                                            </div>
-                                        </div>
-                                    </a>
+                                        </a>
+                                    @endforeach
                                 </div>
                             </div>
                         </li>
                         <li>
-                            <div class="list-footer"> <a href="#">View all notifications</a></div>
+                            <div class="list-footer">
+                                <a href="{{ route('supports.index') }}">View all notifications</a>
+                            </div>
                         </li>
                     </ul>
                 </li>
@@ -125,9 +117,9 @@
                         aria-labelledby="navbarDropdownMenuLink2">
                         <div class="nav-user-info">
                             <h5 class="mb-0 text-white nav-user-name">
-                                {{ Auth::check() ? Auth::user()->name : 'Guest' }}</h5>
+                                {{ "dump(auth()->user())" }}</h5>
                             <span class="status"></span><span
-                                class="ml-2">{{ Auth::check() ? Auth::user()->role : 'N/A' }}</span>
+                                class="ml-2">{{"dump(auth()->user())"}}</span>
                         </div>
 
                         <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>

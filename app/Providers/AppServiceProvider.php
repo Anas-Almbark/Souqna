@@ -13,5 +13,16 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('active-account', function ($user) {
             return !$user->isActive();
         });
+
+
+        \Illuminate\Support\Facades\View::composer('dashboardComponents.navBar', function ($view) {
+            $supports = \App\Models\Support::whereNull('response')->get();
+            $pendingProducts = \App\Models\Product::where('check', 0)->get();
+            
+            $view->with([
+                'supports' => $supports,
+                'pendingProducts' => $pendingProducts
+            ]);
+        });
     }
 }

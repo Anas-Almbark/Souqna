@@ -73,18 +73,22 @@
                     <div class="email-list">
 
                         @foreach ($supports->whereNotNull('user_id') as $message)
-                        <div class="email-list-item email-list-item--unread">
+                        <div class="email-list-item {{ $message->is_read ? '' : 'email-list-item--unread' }}">
                             <div class="email-list-actions">
                                 <label class="custom-control custom-checkbox">
-                                    <input class="custom-control-input checkboxes" type="checkbox" value="1" id="one"><span class="custom-control-label"></span>
-                                </label><a class="favorite active" href="{{ route('supports.show',$message->id) }}"><span><i class="fas fa-star"></i></span></a>
+                                    <input class="custom-control-input checkboxes" type="checkbox" value="1"
+                                        id="one"><span class="custom-control-label"></span>
+                                </label><a class="favorite {{ $message->is_read ? '' : 'active' }}" href="{{ route('supports.show', $message->id) }}"><span><i
+                                            class="fas fa-star"></i></span></a>
                             </div>
-                            <div class="email-list-detail">
-                                <span class="date float-right"><span class="icon"><i class="fas fa-paperclip"></i> </span>{{ $message->created_at->format('F d, Y h:i A') }}</span>
+                            <a href="{{ route('supports.show', $message->id) }}" class="email-list-detail">
+                                <span class="date float-right"><span class="icon"><i class="fas fa-paperclip"></i>
+                                    </span>{{ $message->created_at->format('F d, Y h:i A') }}</span>
                                 <span class="from">{{ $message->name }}</span>
                                 <p class="msg">{{ $message->subject }}</p>
-                                <p class="email"><span class="icon"><i class="fas fa-envelope"></i> </span>{{ $message->email }}</p>
-                            </div>
+                                <p class="email"><span class="icon"><i class="fas fa-envelope"></i>
+                                    </span>{{ $message->email }}</p>
+                            </a>
                         </div>
                         
                         @endforeach
