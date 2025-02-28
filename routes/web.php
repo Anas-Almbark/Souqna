@@ -8,7 +8,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SupportController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-
+use App\Http\Controllers\NotificationController;
 
 Route::get('/dashboard', function () {
     return view('dashboardComponents.homeDashboard');
@@ -65,4 +65,8 @@ Route::middleware('auth:admin')->group(function () {
     Route::put('accepted/account/{user}', [ActiveAccountController::class, 'accepted'])->name('active.accept');
 });
 
+
+Route::middleware('auth')->group(function () {
+    Route::get('notification', [NotificationController::class, 'index'])->name('notification.index');
+});
 require __DIR__ . '/auth.php';
