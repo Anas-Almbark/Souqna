@@ -1,34 +1,30 @@
 <?php
 
 namespace Database\Seeders;
+
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Seeder;
 use App\Models\Admin;
 
-
 class AdminSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         Admin::create([
             'name' => 'Super Admin',
             'email' => 'superadmin@gmail.com',
             'password' => Hash::make('12345678'),
-            'role'=> 'superAdmin',
+            'role' => 'superAdmin',
         ]);
         Admin::create([
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('12345678'),
-            'role'=> 'admin',
+            'role' => 'admin',
         ]);
         // إنشاء 10 مستخدمين تلقائيًا بنفس كلمة المرور
         Admin::factory(10)->create([
             'password' => Hash::make('12345678'),
         ]);
-
     }
 }

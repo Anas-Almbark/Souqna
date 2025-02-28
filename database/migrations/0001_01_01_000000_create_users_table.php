@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('location')->nullable();
             $table->string('identity')->nullable();
             $table->string('photo')->nullable();
+            $table->boolean('is_active')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

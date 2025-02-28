@@ -49,6 +49,7 @@ class ProfileController extends Controller
         $contact->facebook = $validation['facebook'] ?? $contact->facebook;
         $contact->instagram = $validation['instagram'] ?? $contact->instagram;
         $contact->tiktok = $validation['tiktok'] ?? $contact->tiktok;
+        Contact::where('user_id', $user->id)->delete();
         $contact->save();
 
         if ($request->hasFile('identity')) {
@@ -59,7 +60,7 @@ class ProfileController extends Controller
             Storage::disk('public')->delete($user->photo ?? '');
             $user->photo = $validation['photo']->store('photo_user', 'public');
         }
-        $user->save();
+        $user->update();
         return redirect()->route('profile.index')->with('success', 'Profile updated successfully');
     }
 }

@@ -73,6 +73,10 @@ class User extends Authenticatable
     }
     public function isActive()
     {
-        return !$this->identity || !$this->contacts->first()?->phone_primary || !$this->location;
+        return !$this->identity && !$this->contacts->first()?->phone_primary && !$this->location;
+    }
+    public function isAdmin()
+    {
+        return !$this->role == 'user';
     }
 }

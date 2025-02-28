@@ -6,15 +6,12 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
             $table->foreignId("user_id")->constrained()->cascadeOnDelete();
-            $table->string("phone_primary")->unique();
+            $table->string("phone_primary")->nullable()->unique();
             $table->string("phone_second")->nullable()->unique();
             $table->string("facebook")->nullable()->unique();
             $table->string("instagram")->nullable()->unique();
