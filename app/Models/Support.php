@@ -12,6 +12,7 @@ class Support extends Model
         'subject',
         'message',
         'user_id',
+        'response',
     ];
     public function user(){
         return $this->belongsTo(User::class);

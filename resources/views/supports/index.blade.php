@@ -101,7 +101,7 @@
                         </div>
                         <div class="email-list-detail">
                             <span class="date float-right"><span class="icon"><i class="fas fa-paperclip"></i>
-                                </span>{{ $message->created_at }}</span>
+                                </span>{{ $message->created_at->format('F d, Y h:i A') }}</span>
                             <span class="from">{{ $message->name }}</span>
                             <p class="msg">{{ $message->subject }}</p>
                             <p class="email"><span class="icon"><i class="fas fa-envelope"></i>
