@@ -60,7 +60,7 @@
                     <div class="btn-group">
                         <button class="btn btn-light dropdown-toggle" data-toggle="dropdown" type="button">
                             With selected <span class="caret"></span></button>
-                        <div class="dropdown-menu" role="menu"><a class="dropdown-item" href="#">Mark as rea</a><a
+                        <div class="dropdown-menu" role="menu"><a class="dropdown-item" href="#">Mark as read</a><a
                                 class="dropdown-item" href="#">Mark as unread</a><a class="dropdown-item"
                                 href="#">Spam</a>
                             <div class="dropdown-divider"></div><a class="dropdown-item" href="#">Delete</a>
@@ -91,30 +91,28 @@
             <div class="email-list">
 
                 @foreach ($supports->whereNull('user_id') as $message)
-                    <div class="email-list-item email-list-item--unread">
+                    <div class="email-list-item {{ $message->is_read ? '' : 'email-list-item--unread' }}">
                         <div class="email-list-actions">
                             <label class="custom-control custom-checkbox">
                                 <input class="custom-control-input checkboxes" type="checkbox" value="1"
                                     id="one"><span class="custom-control-label"></span>
-                            </label><a class="favorite active" href="{{ route('supports.show', $message->id) }}"><span><i
+                            </label><a class="favorite {{ $message->is_read ? '' : 'active' }}" href="{{ route('supports.show', $message->id) }}"><span><i
                                         class="fas fa-star"></i></span></a>
                         </div>
-                        <div class="email-list-detail">
+                        <a href="{{ route('supports.show', $message->id) }}" class="email-list-detail">
                             <span class="date float-right"><span class="icon"><i class="fas fa-paperclip"></i>
-                                </span>{{ $message->created_at }}</span>
+                                </span>{{ $message->created_at->format('F d, Y h:i A') }}</span>
                             <span class="from">{{ $message->name }}</span>
                             <p class="msg">{{ $message->subject }}</p>
                             <p class="email"><span class="icon"><i class="fas fa-envelope"></i>
                                 </span>{{ $message->email }}</p>
-                        </div>
+                        </a>
                     </div>
                 @endforeach
-
 
             </div>
         </div>
     </div>
-
 
     <!-- ============================================================== -->
     <!-- end main wrapper -->

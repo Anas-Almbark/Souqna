@@ -58,7 +58,7 @@ class SupportController extends Controller
             "message" => $request->message,
         ]);
     }
-        return redirect()->route('home.index')->with("success","Message sent successfully");
+        return redirect()->back()->with("success","Message sent successfully");
     }
 
     /**
@@ -83,18 +83,12 @@ class SupportController extends Controller
     public function update(Request $request, Support $support)
     {
         $request->validate([
-            "name" => "required",
-            "email" => "required",
-            "subject" => "required",
-            "message" => "required",
+            "response" => "required",
         ]);
-        Support::update([
-            "name" => $request->name,
-            "email" => $request->email,
-            "subject" => $request->subject,
-            "message" => $request->message,
-        ]);
-        return redirect()->back()->with("success","Message updated successfully");
+        $support->update([
+            "response" => $request->response,
+        ]); 
+        return redirect()->back()->with("success","Message Reply successfully");
     }
 
     /**

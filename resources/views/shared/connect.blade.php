@@ -1,5 +1,6 @@
 @extends('layout')
 @section('content')
+@include('supports.message')
 <!-- ================ start banner area ================= -->
 <section class="blog-banner-area" id="contact">
     <div class="container h-100">

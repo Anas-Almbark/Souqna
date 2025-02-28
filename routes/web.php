@@ -54,7 +54,8 @@ Route::get('/', action: [HomeController::class, 'index'])->name('home.index');
 Route::get('/home', action: [HomeController::class, 'index'])->name('home.index');
 Route::resource('categories', CategoryController::class)->middleware('auth:admin');
 
-Route::resource('supports', SupportController::class)->middleware(['auth:admin', 'auth'])->except('create');
+
+Route::resource('supports', SupportController::class)->except('create');
 Route::get('/supports/create', [SupportController::class, 'create'])->name('supports.create');
 Route::get('/user/messages', [SupportController::class, 'usermessages'])->name('supports.usermessages');
 
