@@ -18,6 +18,7 @@ class ProductFactory extends Factory
             'price' => $this->faker->randomFloat(2, 10, 1000),
             'status'=> $this->faker->randomElement(['available','Not available']),
             'user_id' => User::inRandomOrder()->first()->id,
+            'check'=>$this->faker->randomElement([0,1]),
         ];
     }
 }
