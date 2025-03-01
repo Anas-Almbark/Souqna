@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductPhoto;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -61,6 +63,21 @@ class ProductController extends Controller
             }
         }
 
+        $followerIds = Auth::user()->followers->pluck('follower_id');
+
+        if ($followerIds->isNotEmpty()) {
+            $notifications = $followerIds->map(function ($followerId) use ($product) {
+                return [
+                    'receiver_id' => $followerId,
+                    'sender_id' => Auth::id(),
+                    'message' => "added a new product: {$product->name}",
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ];
+            })->toArray();
+
+            Notification::insert($notifications);
+        }
         return back()->with('success', 'The product has been sent for review.');
     }
 

@@ -25,7 +25,8 @@
                                 src="{{ $user->photo ? Storage::url($user->photo) : asset('img/def.png') }}"
                                 alt="{{ $user->name }}'s profile image"> </div>
                         <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">{{ $user->name }}</h1>
-                        <h3 class="text-gray-600 font-lg text-semibold leading-6"> {{ $user->followers->count() }} follower
+                        <h3 class="text-gray-600 font-lg text-semibold leading-6"> {{ $user->followers->count() }}
+                            follower
                             , {{ $user->following->count() }} following </h3>
                         <ul class="py-2 mt-3">
                             <li class="flex rounded text-center">
@@ -52,7 +53,7 @@
                             </li>
                             <li>
                                 @if ($user->id == auth()->user()->id)
-                                    <a href="{{ route('profile.edit') }}"
+                                    <a href="{{ route('profile.edit', $user->id) }}"
                                         class="d-block text-center p-2 flex text-gray-600 mt-3 hover:text-gray-700 bg-gray-200 items-center py-3 rounded">edit
                                         profile</a>
                                 @endif

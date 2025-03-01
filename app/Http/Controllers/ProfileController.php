@@ -19,7 +19,7 @@ class ProfileController extends Controller
     {
         return view('profile.view', compact('user'));
     }
-    public function edit(Request $request): View
+    public function edit(Request $request)
     {
         $user = $request->user();
         return view('profile.edit', compact('user'));

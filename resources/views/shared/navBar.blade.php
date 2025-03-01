@@ -55,15 +55,14 @@
                     </ul>
                     <ul class="nav-shop d-flex align-items-center">
                         <li class="">
-                            <a href="{{ route('profile.index', auth()->user()->id) }}" class="mr-2">
-                                @if (auth()->user())
+                            @if (auth()->user())
+                                <a href="{{ route('profile.index', auth()->user()->id) }}" class="mr-2">
                                     <img src={{ asset(auth()->user()->photo ? Storage::url(auth()->user()->photo) : 'img/def.png') }}
                                         class="rounded-circle object-fit-cover"
                                         style="aspect-ratio: 1; border-radius: 50%;" width="45" height="45"
                                         alt="UserImage">
-                                @endif
-
-                            </a>
+                                </a>
+                            @endif
                         </li>
                         @if (auth()->user())
                             @if (Route::is('profile.index'))
@@ -91,14 +90,14 @@
                                         Notifications
                                     </div>
                                     <div class="divide-y divide-gray-100 dark:divide-gray-700">
-                                        @forelse ($user->receivedNotifications->sortByDesc('created_at') as $natification)
+                                        @forelse (auth()->user()->receivedNotifications->sortByDesc('created_at') as $notification)
                                             <a href="#"
                                                 class="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
                                                 <div class="shrink-0 mr-3">
                                                     <img class="rounded-circle object-fit-cover"
                                                         style="aspect-ratio: 1; border-radius: 50%;" width="60"
                                                         height="60"
-                                                        src={{ asset($natification->sender->photo ? Storage::url($natification->sender->photo) : 'img/def.png') }}
+                                                        src={{ asset($notification->sender->photo ? Storage::url($notification->sender->photo) : 'img/def.png') }}
                                                         alt="Jese image">
 
                                                 </div>
@@ -106,13 +105,13 @@
                                                     <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
                                                         <span
                                                             class="font-semibold d-block text-gray-900 dark:text-white">
-                                                            from {{ $natification->sender->name }} </span>
+                                                            from {{ $notification->sender->name }} </span>
                                                         <p>
-                                                            {{ $natification->message }}
+                                                            {{ $notification->message }}
                                                         </p>
                                                     </div>
                                                     <div class="text-xs text-blue-600 dark:text-blue-500">
-                                                        {{ $natification->created_at->diffForHumans() }}
+                                                        {{ $notification->created_at->diffForHumans() }}
                                                     </div>
                                                 </div>
                                             </a>
