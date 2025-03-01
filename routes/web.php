@@ -53,6 +53,7 @@ Route::middleware(['auth:admin'])->prefix('adminproducts')->group(function () {
 
 Route::get('/', action: [HomeController::class, 'index'])->name('home.index');
 Route::get('/home', action: [HomeController::class, 'index'])->name('home.index');
+
 Route::resource('categories', CategoryController::class)->middleware('auth:admin');
 
 

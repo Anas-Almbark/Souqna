@@ -55,8 +55,8 @@
                     </ul>
                     <ul class="nav-shop d-flex align-items-center">
                         <li class="">
-                            @if (auth()->user())
-                                <a href="{{ route('profile.index', auth()->user()->id) }}" class="mr-2">
+                            <a href="{{ route('profile.index', auth()->user()->id) }}" class="mr-2">
+                                @if (auth()->user())
                                     <img src={{ asset(auth()->user()->photo ? Storage::url(auth()->user()->photo) : 'img/def.png') }}
                                         class="rounded-circle object-fit-cover"
                                         style="aspect-ratio: 1; border-radius: 50%;" width="45" height="45"
