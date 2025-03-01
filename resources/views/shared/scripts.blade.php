@@ -6,3 +6,4 @@
 <script src="{{ asset('vendors/jquery.ajaxchimp.min.js') }}"></script>
 <script src="{{ asset('vendors/mail-script.js') }}"></script>
 <script src="{{ asset('js/main.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>

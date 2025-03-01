@@ -15,9 +15,8 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    public function index()
+    public function index(User $user)
     {
-        $user = Auth::user();
         return view('profile.view', compact('user'));
     }
     public function edit(Request $request): View

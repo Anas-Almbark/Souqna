@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductPhoto;
+
 class ProductController extends Controller
 {
     /**
@@ -35,33 +36,33 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    $validated = $request->validate([
-        'name' => 'required',
-        'price' => 'required',
-        'description' => 'required',
-        'photos.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5000',
-        'status' => 'required',
-    ]);
+    {
+        $validated = $request->validate([
+            'name' => 'required',
+            'price' => 'required',
+            'description' => 'required',
+            'photos.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5000',
+            'status' => 'required',
+        ]);
 
-    // إضافة المنتج مع تعيين `check` إلى 0 (قيد المراجعة)
-    $product = Product::create(array_merge($validated, [
-        'user_id' => auth()->id(),
-        'check' => 0, // المنتج قيد المراجعة
-    ]));
+        // إضافة المنتج مع تعيين `check` إلى 0 (قيد المراجعة)
+        $product = Product::create(array_merge($validated, [
+            'user_id' => auth()->id(),
+            'check' => 0, // المنتج قيد المراجعة
+        ]));
 
-    // رفع الصور إن وجدت
-    if ($request->hasFile('photos')) {
-        foreach ($request->file('photos') as $photo) {
-            ProductPhoto::create([
-                'product_id' => $product->id,
-                'url' => $photo->store('products', 'public'),
-            ]);
+        // رفع الصور إن وجدت
+        if ($request->hasFile('photos')) {
+            foreach ($request->file('photos') as $photo) {
+                ProductPhoto::create([
+                    'product_id' => $product->id,
+                    'url' => $photo->store('products', 'public'),
+                ]);
+            }
         }
-    }
 
-    return back()->with('success', 'The product has been sent for review.');
-}
+        return back()->with('success', 'The product has been sent for review.');
+    }
 
 
     /**
@@ -123,23 +124,23 @@ class ProductController extends Controller
 
 
     public function approve($id)
-{
-    $product = Product::findOrFail($id);
-    $product->update(['check' => 1]); // الموافقة على المنتج
-    return back()->with('success', 'The product is approved');
-}
+    {
+        $product = Product::findOrFail($id);
+        $product->update(['check' => 1]); // الموافقة على المنتج
+        return back()->with('success', 'The product is approved');
+    }
 
-public function reject($id)
-{
-    $product = Product::findOrFail($id);
-    $product->update(['check' => 2]); // رفض المنتج
-    return back()->with('error', 'The product is rejected');
-}
-// public function homeindex()
-// {
-//     $products = Product::with(['photos', 'categories'])
-//         ->where('check', 1)
-//         ->get();
-//     return view('shared.home', compact('products'));
-// }
+    public function reject($id)
+    {
+        $product = Product::findOrFail($id);
+        $product->update(['check' => 2]); // رفض المنتج
+        return back()->with('error', 'The product is rejected');
+    }
+    // public function homeindex()
+    // {
+    //     $products = Product::with(['photos', 'categories'])
+    //         ->where('check', 1)
+    //         ->get();
+    //     return view('shared.home', compact('products'));
+    // }
 }

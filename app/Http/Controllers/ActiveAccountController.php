@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class ActiveAccountController extends Controller
@@ -28,16 +30,25 @@ class ActiveAccountController extends Controller
     {
         $user->identity = null;
         $user->location = null;
+        $user->save();
         $contact = $user->contacts->first();
         $contact->phone_primary = null;
         $contact->save();
-        $user->save();
+        $notification = new Notification();
+        $notification->receiver_id = $user->id;
+        $notification->sender_id = Auth::id();
+        $notification->message = 'Your account has been rejected';
+        $notification->save();
         return redirect()->route('active.index');
     }
     public function accepted(User $user)
     {
         $user->is_active = true;
         $user->save();
+        $notification = new Notification();
+        $notification->receiver_id  = $user->id;
+        $notification->sender_id = Auth::id();
+        $notification->message = 'Your account has been accepted';
         return redirect()->route('active.index');
     }
 }

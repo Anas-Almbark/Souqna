@@ -79,4 +79,27 @@ class User extends Authenticatable
     {
         return !$this->role == 'user';
     }
+    public function receivedNotifications()
+    {
+        return $this->hasMany(Notification::class, 'receiver_id');
+    }
+    public function sentNotifications()
+    {
+        return $this->hasMany(Notification::class, 'sender_id');
+    }
+
+    public function followers()
+    {
+        return $this->hasMany(Follow::class, 'following_id');
+    }
+
+    public function following()
+    {
+        return $this->hasMany(Follow::class, 'follower_id');
+    }
+
+    public function isFollowing($userId)
+    {
+        return $this->following()->where('following_id', $userId)->exists();
+    }
 }

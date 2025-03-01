@@ -25,12 +25,30 @@
                                 src="{{ $user->photo ? Storage::url($user->photo) : asset('img/def.png') }}"
                                 alt="{{ $user->name }}'s profile image"> </div>
                         <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">{{ $user->name }}</h1>
-                        <h3 class="text-gray-600 font-lg text-semibold leading-6"> 0 follower , 0 following </h3>
+                        <h3 class="text-gray-600 font-lg text-semibold leading-6"> {{ $user->followers->count() }} follower
+                            , {{ $user->following->count() }} following </h3>
                         <ul class="py-2 mt-3">
                             <li class="flex rounded text-center">
-                                <form action="" method="post" class="w-100"> @csrf <button type="submit"
-                                        class="btn w-100 bg-blue-400 py-3 text-white"> <i class="fa-solid fa-user-plus"></i>
-                                        follow </button> </form>
+                                @if (Auth::check() && Auth::id() !== $user->id)
+                                    @if (Auth::user()->isFollowing($user->id))
+                                        <form action="{{ route('unfollow', $user->id) }}" method="POST" class="w-100">
+                                            @csrf
+                                            <button type="submit" class="btn w-100 bg-red-400 py-3 text-white">
+                                                <i class="fa-solid fa-user-minus mr-1"></i>
+                                                unFollow
+                                            </button>
+                                        </form>
+                                    @else
+                                        <form action="{{ route('follow', $user->id) }}" method="POST" class="w-100">
+                                            @csrf
+                                            <button type="submit" class="btn w-100 bg-blue-400 py-3 text-white">
+                                                <i class="fa-solid fa-user-plus mr-1"></i>
+                                                follow
+                                            </button>
+                                        </form>
+                                    @endif
+                                @endif
+
                             </li>
                             <li>
                                 @if ($user->id == auth()->user()->id)
