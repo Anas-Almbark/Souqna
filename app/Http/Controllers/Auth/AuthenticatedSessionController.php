@@ -51,18 +51,28 @@ class AuthenticatedSessionController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'البريد الإلكتروني أو كلمة المرور غير صحيحة.',
+            'email' => 'The Email Or Password Invalid',
         ]);
     }
 
     public function destroy(Request $request)
     {
-        Auth::guard('web')->logout();
-        Auth::guard('admin')->logout();
+        if (Auth::guard('admin')->check()) {
+            Auth::guard('admin')->logout();
+            $message='admin logout successfully';
+        } else if(Auth::guard('web')->check()) {
+            Auth::guard('web')->logout();
+            $message='user logout successfully';
+        } 
+        else {
+            Auth::logout();
+            $message='logout successfully';
+        }
+
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/')->with('success', $message);
     }
 }

@@ -34,8 +34,8 @@ Route::middleware('guest')->group(function () {
     Route::post('reset-password', [NewPasswordController::class, 'store'])
         ->name('password.store');
 });
-
-Route::middleware('auth')->group(function () {
+//اذلت المدلوير من هنا لأنه لا يعمل عند اضافته
+Route::middleware(['auth:admin,web'])->group(function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
 
