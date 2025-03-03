@@ -23,7 +23,7 @@
                     <div class="single-prd-item">
                         @if ($product->photos->count() > 0)
                         <img class="card-img img-fluid rounded"
-                            src="{{ asset('storage/' . $product->photos[0]->url) }}" alt="{{ $product->name }}"
+                            src="{{ $product->photos[0]->url}}" alt="{{ $product->name }}"
                             style="object-fit: cover; width: 100%; height: 300px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
                     @else
                         <img class="img-fluid" src="{{ asset('img/no-image.png') }}" alt="No image available">

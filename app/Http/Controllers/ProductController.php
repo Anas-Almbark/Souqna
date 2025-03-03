@@ -153,6 +153,57 @@ class ProductController extends Controller
         $product->update(['check' => 2]); // رفض المنتج
         return back()->with('error', 'The product is rejected');
     }
+
+    public function shopSingle(string $id)
+    {
+$product = Product::with(['categories','photos'])->findOrFail($id);
+        
+        // Get the product's evaluation/rating
+        $rate = \App\Models\Evaluation::where('product_id', $id)->first();
+        
+        // Initialize variables for user rating status
+        $userHasRated = null;
+        $userRating = null;
+        $productRating = null;
+
+        // If product has any rating, get it for display to non-logged in users
+        if ($rate) {
+            $productRating = $rate->rate;
+        }
+        
+        // If user is logged in, check their specific rating
+        if (auth()->check()) {
+            $evaluation = \App\Models\Evaluation::where('product_id', $id)
+                ->where('buyer', auth()->user()->id)
+                ->first();
+                
+            $userHasRated = !is_null($evaluation);
+            $userRating = $userHasRated ? $evaluation->rate : null;
+        }
+
+        return view('shared.shopSingle', compact('product', 'rate', 'userHasRated', 'userRating', 'productRating'));
+    }
+    public function rateStore(Request $request)
+    {
+        // Check if user has already rated this product
+        $userHasRated = \App\Models\Evaluation::where('product_id', $request->product_id)
+            ->where('buyer', auth()->user()->id)
+            ->exists();
+
+        if ($userHasRated) {
+            return redirect()->back()->with('error', 'You have already rated this product');
+        }
+
+        $product = Product::findOrFail($request->product_id);
+        $evaluation = new \App\Models\Evaluation();
+        $evaluation->buyer = auth()->user()->id;
+        $evaluation->seller = $product->user_id;
+        $evaluation->rate = $request->rating;
+        $evaluation->product_id = $product->id;
+        $evaluation->save();
+
+        return redirect()->back()->with('success', 'Rated successfully');
+    }
     // public function homeindex()
     // {
     //     $products = Product::with(['photos', 'categories'])

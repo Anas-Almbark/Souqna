@@ -14,7 +14,7 @@ class ProductPhotoFactory extends Factory
     {
         return [
             'product_id' => Product::factory(), // منتج مرتبط
-            'url' => 'https://source.unsplash.com/400x300/?product&random=' . rand(1, 1000), // صور منتجات عشوائية
+            'url' => 'https://picsum.photos/400/300/?product&random=' . rand(1, 1000), // صور منتجات عشوائية
         ];
     }
 }

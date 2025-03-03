@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('buyer')->constrained("users")->cascadeOnDelete();
             $table->foreignId('seller')->constrained("users")->cascadeOnDelete();
+            $table->foreignId("product_id")->constrained("products")->cascadeOnDelete();
             $table->enum("rate", [1, 2, 3, 4, 5]);
             $table->timestamps();
         });

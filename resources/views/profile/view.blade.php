@@ -16,15 +16,30 @@
                                 </div>
                             </span>
                         @endif
-                        <div class="eval-star my-2 mb-4 text-center"> <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i> <i class="fa-solid fa-star"
-                                style="color: #FFD43B;"></i> <i class="fa-solid fa-star" style="color: #FFD43B;"></i> <i
-                                class="fa-solid fa-star-half-stroke" style="color: #FFD43B;"></i>
-                        </div>
+                               
                         <div class="image overflow-hidden"> <img class="h-auto w-full mx-auto"
                                 src="{{ $user->photo ? Storage::url($user->photo) : asset('img/def.png') }}"
                                 alt="{{ $user->name }}'s profile image"> </div>
                         <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">{{ $user->name }}</h1>
+                        
+{{-- Seller Rating Display --}}
+<div class="flex items-center mb-2">
+    <div class="flex text-yellow-400">
+        @php
+            $evaluation = floor($evaluation);
+        @endphp
+        
+        @for ($i = 1; $i <= 5; $i++)
+            @if ($i <= $evaluation)
+                <i class="fas fa-star"></i>
+            @else
+                <i class="far fa-star"></i>
+            @endif
+        @endfor
+    </div>
+    <span class="ml-2 text-gray-600">({{ $evaluation }})</span>
+</div>
+                        
                         <h3 class="text-gray-600 font-lg text-semibold leading-6"> {{ $user->followers->count() }}
                             follower
                             , {{ $user->following->count() }} following </h3>
@@ -113,7 +128,7 @@
                                 <div class="bg-white rounded-xl border border-blue-300 h-full flex flex-col">
                                     <div
                                         class="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white bg-clip-border rounded-xl h-48">
-                                        <img src="{{ Storage::url($product->photos->first()->url) }}" alt="card-image"
+                                        <img src="{{ $product->photos->first()->url }}" alt="card-image"
                                             class="object-cover w-full h-full" />
                                     </div>
                                     <div class="p-6 flex-grow">

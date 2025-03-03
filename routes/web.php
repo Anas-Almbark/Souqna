@@ -26,7 +26,8 @@ Route::view("/", "shared.home")->name("home.index");
 Route::view("/home", "shared.home")->name("home.index");
 
 Route::view("/products/shopcategory", "shared.shopCategory")->name("productsUser.index");
-Route::view("/product/shopsingle", "shared.shopSingle")->name("product.index");
+Route::get("/product/shopsingle/{id}", [ProductController::class,'shopSingle'])->name("product.index");
+Route::post("/product/rate", [ProductController::class,'rateStore'] )->name("product.rate");
 
 Route::view("/connect", "shared.connect")->name("connect.index");
 Route::view("/tracking", "shared.tracking")->name("tracking.index");

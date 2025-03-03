@@ -17,7 +17,8 @@ class ProfileController extends Controller
 {
     public function index(User $user)
     {
-        return view('profile.view', compact('user'));
+$evaluation = \App\Models\Evaluation::where('seller', $user->id)->avg('rate') ?? 0;
+        return view('profile.view', compact('user', 'evaluation'));
     }
     public function edit(Request $request)
     {
@@ -60,6 +61,6 @@ class ProfileController extends Controller
             $user->photo = $validation['photo']->store('photo_user', 'public');
         }
         $user->update();
-        return redirect()->route('profile.index')->with('success', 'Profile updated successfully');
+        return redirect()->route('profile.index',$user->id)->with('success', 'Profile updated successfully');
     }
 }

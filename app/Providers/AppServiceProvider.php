@@ -8,11 +8,16 @@ use Illuminate\Support\ServiceProvider;
 use App\Models\Support;
 use App\Models\Product;
 use App\Policies\ProductPolicy;
+use App\Policies\ReviewPolicy;
 
 
 class AppServiceProvider extends ServiceProvider
 {
-    
+    //ربط التحقق لحالة التقييم للمنتج
+    protected $policies = [
+        Product::class => ReviewPolicy::class,
+    ];
+
     public function register(): void {}
     public function boot(): void
     {
