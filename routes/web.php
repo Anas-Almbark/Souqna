@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\FollowController;
+use App\Http\Controllers\RequestController;
 
 Route::get('/dashboard', function () {
     return view('dashboardComponents.homeDashboard');
@@ -76,4 +77,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/unfollow/{id}', [FollowController::class, 'unfollow'])->name('unfollow');
 });
 
+
+
+
+Route::post('/send-purchase-request', [RequestController::class, 'store'])->name('send.purchase.request');
+Route::get('/my-requests', [App\Http\Controllers\RequestController::class, 'userRequests'])->name('user.requests');
+
+Route::patch('/requests/{request}/accept', [App\Http\Controllers\RequestController::class, 'accept'])->name('requests.accept');
+Route::delete('/requests/{request}/reject', [App\Http\Controllers\RequestController::class, 'reject'])->name('requests.reject');
 require __DIR__ . '/auth.php';

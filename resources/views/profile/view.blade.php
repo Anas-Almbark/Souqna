@@ -114,6 +114,7 @@
                         </ul>
                     </div>
                 </div>
+                
                 <div class="w-full md:w-9/12 mx-2">
                     <div class="bg-gray-200 p-3 rounded-lg grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         @forelse ($user->products as $product)
@@ -141,8 +142,15 @@
                             <p class="text-center text-gray-500">No products found</p>
                         @endforelse
                     </div>
+                    <div class="text-center mt-4 mb-4">
+                        <a href="{{ route('user.requests') }}" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300">
+                            <i class="fas fa-shopping-cart mr-2"></i>My Requests
+                        </a>
+                    </div>
                 </div>
             </div>
+            
         </div>
     </div>
+   
 @endsection

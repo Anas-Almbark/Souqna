@@ -15,6 +15,22 @@
         </div>
 </div>
 </section>
+@if(session('success'))
+<div class="alert alert-success text-center my-3 p-3 rounded-lg bg-green-100 text-green-700">
+    {{ session('success') }}
+</div>
+@endif
+@if(session('success'))
+    <div class="alert alert-success text-center my-3 p-3 rounded-lg bg-green-100 text-green-700">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger text-center my-3 p-3 rounded-lg bg-red-100 text-red-700">
+        {{ session('error') }}
+    </div>
+@endif
 <div class="product_image_area">
     <div class="container">
         <div class="row s_product_inner">
@@ -28,6 +44,7 @@
                     @else
                         <img class="img-fluid" src="{{ asset('img/no-image.png') }}" alt="No image available">
                     @endif
+
                     </div>
                 </div>
             </div>
@@ -45,12 +62,46 @@
                     </ul>
                     <p>{{ $product->description }}</p>
                     <div class="product_count">
-                        <a class="button primary-btn" href="#">Add to Cart</a>
-                        <form method="post" action="{{ route('products.destroy',$product->id) }}">
-                            @method('DELETE')
+                     
+                        <form action="{{ route('send.purchase.request') }}" method="POST" class="mt-3">
                             @csrf
-                            <button class="button danger-btn" type="submit">delete</button>
+                            <input type="hidden" name="buyer" value="{{ auth()->id() }}">
+                            <input type="hidden" name="seller" value="{{ $product->user_id }}">
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <div class="mb-3">
+                                <input type="number" name="offer_ratio" 
+                                    class="form-control border rounded p-2 w-full" 
+                                    placeholder="Enter offer percentage" 
+                                    min="0" 
+                                    value="0">
+                            </div>
+                            <button type="submit" style="background-color: blue; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; transition: 0.3s;">
+                                Send Purchase Request
+                            </button>
                         </form>
+                    </div>
+                    
+                        
+
+<script>
+    document.getElementById("buy-button").addEventListener("click", function () {
+        let productId = this.getAttribute("data-product-id");
+
+        fetch('/send-purchase-request', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+    },
+    body: JSON.stringify({
+        buyer_id: 1,       // عوض هذا بالـ ID الفعلي للمشتري
+        product_id: 5,     // ID المنتج المطلوب
+        offer_ratio: 10    // نسبة العرض أو السعر
+    })
+})
+
+</script>
                         
 
                     </div>

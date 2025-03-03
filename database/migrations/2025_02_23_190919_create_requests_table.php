@@ -9,17 +9,23 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('requests', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("buyer")->constrained("users")->cascadeOnDelete();
-            $table->foreignId("seller")->constrained("users")->cascadeOnDelete();
-            $table->foreignId("product_id")->constrained("products")->cascadeOnDelete();
-            $table->enum("offer_ratio", [5, 10, 15]);
+            $table->unsignedBigInteger('buyer');
+            $table->unsignedBigInteger('seller');
+            $table->unsignedBigInteger('product_id');
+            $table->decimal('offer_ratio', 8, 2)->nullable();
+            $table->boolean('is_sold')->default(0);
             $table->timestamps();
+    
+            $table->foreign('buyer')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('seller')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
+    
 
     /**
      * Reverse the migrations.
