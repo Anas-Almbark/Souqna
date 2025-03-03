@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserNotificationEvent;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use App\Models\Product;
@@ -63,19 +64,18 @@ class ProductController extends Controller
             }
         }
 
-        $followerIds = Auth::user()->followers->pluck('follower_id');
-
-        if ($followerIds->isNotEmpty()) {
-            $notifications = $followerIds->map(function ($followerId) use ($product) {
+        $followers = Auth::user()->followers;
+        if ($followers->isNotEmpty()) {
+            $notifications = $followers->map(function ($follower) use ($product) {
+                broadcast(new UserNotificationEvent($follower, "{Flan} Followed you!", "new_product"))->toOthers();
                 return [
-                    'receiver_id' => $followerId,
+                    'receiver_id' => $follower->follower_id,
                     'sender_id' => Auth::id(),
                     'message' => "added a new product: {$product->name}",
                     'created_at' => now(),
                     'updated_at' => now()
                 ];
             })->toArray();
-
             Notification::insert($notifications);
         }
         return back()->with('success', 'The product has been sent for review.');

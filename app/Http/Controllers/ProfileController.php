@@ -60,6 +60,6 @@ class ProfileController extends Controller
             $user->photo = $validation['photo']->store('photo_user', 'public');
         }
         $user->update();
-        return redirect()->route('profile.index')->with('success', 'Profile updated successfully');
+        return redirect()->route('profile.index', compact("user"))->with('success', 'Profile updated successfully');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserNotificationEvent;
 use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -49,6 +50,7 @@ class ActiveAccountController extends Controller
         $notification->receiver_id  = $user->id;
         $notification->sender_id = Auth::id();
         $notification->message = 'Your account has been accepted';
+        // broadcast(new UserNotificationEvent($user, "{Flan} Followed you!", "follow"))->toOthers();
         return redirect()->route('active.index');
     }
 }

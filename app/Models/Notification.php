@@ -10,6 +10,7 @@ class Notification extends Model
         'receiver_id',
         'sender_id',
         'message',
+        'is_read',
     ];
 
     public function receiver()
