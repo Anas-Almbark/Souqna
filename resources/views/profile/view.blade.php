@@ -17,10 +17,17 @@
                                 </div>
                             </span>
                         @endif
-                        <div class="eval-star my-2 mb-4 text-center"> <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i> <i class="fa-solid fa-star"
-                                style="color: #FFD43B;"></i> <i class="fa-solid fa-star" style="color: #FFD43B;"></i> <i
-                                class="fa-solid fa-star-half-stroke" style="color: #FFD43B;"></i>
+                        <div class="eval-star my-2 mb-4 text-center">
+                            @for($i = 1; $i <= 5; $i++)
+                                @if($i <= floor($evaluation))
+                                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                                @elseif($i - 0.5 <= $evaluation)
+                                    <i class="fa-solid fa-star-half-stroke" style="color: #FFD43B;"></i>
+                                @else
+                                    <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
+                                @endif
+                            @endfor
+                            <span class="ml-2 text-gray-600">({{ number_format($evaluation, 1) }})</span>
                         </div>
                         <div class="image overflow-hidden"> <img class="h-auto w-full mx-auto"
                                 src="{{ $user->photo ? Storage::url($user->photo) : asset('img/def.png') }}"
