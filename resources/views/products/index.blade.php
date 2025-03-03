@@ -34,14 +34,14 @@
                                 @endif
                        
                                 <ul class="card-product__imgOverlay">
-                                    <li><a href="{{ route('products.show', $product->id) }}"><button>View
+                                    <li><a href="{{ route('product.index', $product->id) }}"><button>View
                                                 Details</button></a></li>
                                     <li><button>Add to Cart</button></li>
                                 </ul>
                             </div>
                             <div class="card-body">
                                 <h4 class="card-product__title"><a
-                                        href="{{ route('products.show', $product->id) }}">{{ $product->name }}</a></h4>
+                                        href="{{ route('product.index', $product->id) }}">{{ $product->name }}</a></h4>
                                 <p class="card-product__price">${{ $product->price }}</p>
                             </div>
                         </div>

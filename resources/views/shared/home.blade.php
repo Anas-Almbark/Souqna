@@ -72,21 +72,8 @@
                             </div>
                             <div class="card-body">
                                 <p>{{ $product->categories->first()->name ?? 'Uncategorized' }}</p>
-                                <h4 class="card-product__title">
-                                    <form action="{{ route('product.index', $product->id) }}" method="get"
-                                        style="display: inline;">
-                                        @csrf
-                                        <input type="submit" class="btn text-dark hover-blue" value="{{ $product->name }}"
-                                            style="border: none; background: none; padding: 0;">
-
-                                        <style>
-                                            .hover-blue:hover {
-                                                color: #007bff !important;
-                                                text-decoration: none;
-                                            }
-                                        </style>
-                                    </form>
-                                </h4>
+                                <h4 class="card-product__title"><a
+                                    href="{{ route('product.index', $product->id) }}">{{ $product->name }}</a></h4>
                                 <p class="card-product__price">${{ $product->price }}</p>
                             </div>
                         </div>
