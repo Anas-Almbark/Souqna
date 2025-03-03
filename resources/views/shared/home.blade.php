@@ -1,6 +1,7 @@
+
 @extends('layout')
 @section('content')
-    @include('shared.message')
+@include('shared.message')
     <section class="hero-banner">
         <div class="container">
             <div class="row no-gutters align-items-center pt-60px">

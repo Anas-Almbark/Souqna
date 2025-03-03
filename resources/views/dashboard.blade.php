@@ -15,15 +15,21 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/charts/c3charts/c3.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/flag-icon-css/flag-icon.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"> --}}
+
     <title> Dashboard Admin </title>
 </head>
 
 <body>
+    @include("categories.message")
     <div class="dashboard-main-wrapper">
         @include('dashboardComponents.navBar')
         @include('dashboardComponents.sideBar')
         <div class="dashboard-wrapper pt-5">
+
             @yield('content')
+            
             {{-- @include("dashboardComponents.footer") --}}
         </div>
     </div>
@@ -39,6 +45,9 @@
     <script src="{{ asset('assets/vendor/charts/c3charts/d3-5.4.0.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/charts/c3charts/C3chartjs.js') }}"></script>
     <script src="{{ asset('assets/libs/js/dashboard-ecommerce.js') }}"></script>
+
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script> --}}
+
 </body>
 
 </html>

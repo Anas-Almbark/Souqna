@@ -1,6 +1,6 @@
 @extends('layout')
 @section('content')
-    @include('shared.message')
+@include('shared.message')
     <section class="blog-banner-area" id="blog">
         <div class="container h-100">
             <div class="blog-banner">
@@ -31,7 +31,7 @@
                         <h3>{{ $product->name }}</h3>
                         <h2>{{ $product->price }}</h2>
                         
-                        @if (!Auth::check() || $productRating !== null || !Auth::user()->can('create', App\Models\Product::class))
+                        @if (!Auth::check() || $productRating !== null)
                         {{-- Show readonly rating for users who already rated OR users without permission --}}
                         <div class="rating">
                             <div class="star-rating">

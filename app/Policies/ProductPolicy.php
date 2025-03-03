@@ -53,4 +53,14 @@ class ProductPolicy
         // Users can only delete their own products
         return $user->id === $product->user_id && $user->is_active === 1;
     }
+
+    /**
+     * Determine if the user owns the product.
+     *
+     * @param User $user
+     * @param Product $product
+     * @return bool
+     */
+
+    
 }

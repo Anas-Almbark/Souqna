@@ -1,7 +1,13 @@
-@if (session()->has("success"))
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong>Success </strong>  {{session("success")}}.
-  </div>
+@if (session()->has('success'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            toastr.success("{{ session('success') }}", "نجاح!", {
+                closeButton: true,
+                progressBar: true,
+                positionClass: "toast-top-right",
+                timeOut: 3000
+            });
+        });
+    </script>
 @endif
-
 

@@ -1,12 +1,13 @@
 @extends("dashboard")
 @section("content")
 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-    @include("categories.message")
+
     <div class="card">
       <div class="card-body">
         <div class="table-responsive">
           <table class="table table-striped table-bordered first">
             <thead>
+
               <tr>
                 <th>Name</th>
                 <th>status</th>
