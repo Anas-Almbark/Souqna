@@ -8,9 +8,15 @@
                     <div class="card mx-auto my-5">
                         <h5 class="card-header"> Add new product </h5>
                         <div class="card-body">
-                            <div class="alert alert-info" role="alert">
-                                Note: Your product will be reviewed by an administrator before being published.
-                            </div>
+                            @can('create', App\Models\Product::class)
+                                <div class="alert alert-info" role="alert">
+                                    Note: Your product will be reviewed by an administrator before being published.
+                                </div>
+                            @else
+                                <div class="alert alert-danger" role="alert">
+                                    Note: Your product will be reviewed by an administrator before being published.
+                                </div>
+                            @endcan
                             <form action="{{ route('products.store') }}" id="basicform" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
@@ -61,15 +67,16 @@
                                         You can select multiple images for your product (Maximum size: 2MB per image)
                                     </small>
                                 </div>
-
-                                <div class="row">
-                                    <div class="col pl-0">
-                                        <p class="text-right">
-                                            <button type="submit" class="btn btn-space btn-primary">Submit</button>
-                                            <button class="btn btn-space btn-secondary">Cancel</button>
-                                        </p>
+                                @can('create', App\Models\Product::class)
+                                    <div class="row">
+                                        <div class="col pl-0">
+                                            <p class="text-right">
+                                                <button type="submit" class="btn btn-space btn-primary">Submit</button>
+                                                <button class="btn btn-space btn-secondary">Cancel</button>
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
+                                @endcan
                             </form>
                         </div>
                     </div>

@@ -30,51 +30,44 @@
                     <div class="s_product_text">
                         <h3>{{ $product->name }}</h3>
                         <h2>{{ $product->price }}</h2>
-                        @if (!auth()->check() || $productRating)
-                            {{-- Show readonly rating for users who already rated --}}
-                            <div class="rating">
-                                <div class="star-rating">
-                                    @for ($i = 5; $i >= 1; $i--)
-                                        @if ($productRating >= $i)
-                                            <i class="fa fa-star" style="color: #ffd700;"></i>
-                                        @else
-                                            <i class="fa fa-star" style="color: #ddd;"></i>
-                                        @endif
-                                    @endfor
-                                </div>
+                        
+                        @if (!Auth::check() || $productRating !== null || !Auth::user()->can('create', App\Models\Product::class))
+                        {{-- Show readonly rating for users who already rated OR users without permission --}}
+                        <div class="rating">
+                            <div class="star-rating">
+                                @for ($i = 5; $i >= 1; $i--)
+                                    <i class="fa fa-star" style="color: {{ $productRating >= $i ? '#ffd700' : '#ddd' }};"></i>
+                                @endfor
                             </div>
-                        @else
-                            {{-- Rating form for logged in users who haven't rated yet --}}
-                            <form method="post" action="{{ route('product.rate') }}" class="rating-form">
-                                @csrf
-                                <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                <input type="hidden" name="rate" id="selected-rating" value="5">
-
-                                <div class="rating">
-                                    <input type="radio" id="star5" name="rating" value="5"
-                                        onclick="updateRating(5)" />
-                                    <label for="star5" title="5 stars"><i class="fa fa-star"></i></label>
-
-                                    <input type="radio" id="star4" name="rating" value="4"
-                                        onclick="updateRating(4)" />
-                                    <label for="star4" title="4 stars"><i class="fa fa-star"></i></label>
-
-                                    <input type="radio" id="star3" name="rating" value="3"
-                                        onclick="updateRating(3)" />
-                                    <label for="star3" title="3 stars"><i class="fa fa-star"></i></label>
-
-                                    <input type="radio" id="star2" name="rating" value="2"
-                                        onclick="updateRating(2)" />
-                                    <label for="star2" title="2 stars"><i class="fa fa-star"></i></label>
-
-                                    <input type="radio" id="star1" name="rating" value="1"
-                                        onclick="updateRating(1)" />
-                                    <label for="star1" title="1 star"><i class="fa fa-star"></i></label>
-                                </div>
-                                <button type="submit" class="btn btn-primary mt-2">Submit Rating</button>
-                            </form>
-                        @endif
+                        </div>
+                    @else
+                        {{-- Rating form for logged-in users who haven't rated yet and have permission --}}
+                        <form method="post" action="{{ route('product.rate') }}" class="rating-form">
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                            <input type="hidden" name="rate" id="selected-rating" value="5">
+                    
+                            <div class="rating">
+                                @for ($i = 5; $i >= 1; $i--)
+                                    <input type="radio" id="star{{ $i }}" name="rating" value="{{ $i }}"
+                                        onclick="updateRating({{ $i }})" />
+                                    <label for="star{{ $i }}" title="{{ $i }} stars">
+                                        <i class="fa fa-star"></i>
+                                    </label>
+                                @endfor
+                            </div>
+                    
+                            <button type="submit" class="button primary-btn p-2 m-1">Save Rating</button>
+                        </form>
+                    @endif
+                    
+                    <script>
+                        function updateRating(value) {
+                            document.getElementById('selected-rating').value = value;
+                        }
+                    </script>
+                                        
 
 
 
@@ -91,7 +84,7 @@
 
                             .rating label {
                                 color: #ddd;
-                                font-size: 24px;
+                                font-size: 16px;
                                 padding: 0 5px;
                                 cursor: pointer;
                             }

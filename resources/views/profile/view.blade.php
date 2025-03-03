@@ -117,7 +117,7 @@
                 <div class="w-full md:w-9/12 mx-2">
                     <div class="bg-gray-200 p-3 rounded-lg grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         @forelse ($user->products as $product)
-                            <a href="" class="block h-full">
+                            <a href="{{ route('product.index',$product->id) }}" class="block h-full">
                                 <div class="bg-white rounded-xl border border-blue-300 h-full flex flex-col">
                                     <div
                                         class="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white bg-clip-border rounded-xl h-48">

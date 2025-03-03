@@ -16,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
     //ربط التحقق لحالة التقييم للمنتج
     protected $policies = [
         Product::class => ReviewPolicy::class,
+        Product::class => ProductPolicy::class,
     ];
 
     public function register(): void {}
