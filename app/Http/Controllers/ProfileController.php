@@ -61,6 +61,6 @@ $evaluation = \App\Models\Evaluation::where('seller', $user->id)->avg('rate') ??
             $user->photo = $validation['photo']->store('photo_user', 'public');
         }
         $user->update();
-        return redirect()->route('profile.index',$user->id)->with('success', 'Profile updated successfully');
+        return redirect()->route('profile.index')->with('success', 'Profile updated successfully');
     }
 }

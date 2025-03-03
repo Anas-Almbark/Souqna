@@ -69,7 +69,7 @@ Route::middleware('auth:admin')->group(function () {
     Route::put('accepted/account/{user}', [ActiveAccountController::class, 'accepted'])->name('active.accept');
 });
 
-Route::get('notification', [NotificationController::class, 'index'])->middleware('auth')->name('notification.index');
+Route::put('read/notification/{id}', [NotificationController::class, 'update'])->middleware('auth')->name('notification.update');
 
 Route::middleware('auth')->group(function () {
     Route::post('/follow/{id}', [FollowController::class, 'follow'])->name('follow');
