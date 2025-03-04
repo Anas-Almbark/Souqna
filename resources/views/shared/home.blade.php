@@ -61,10 +61,26 @@
                                 @endif
                                 <ul class="card-product__imgOverlay">
                                     <li>
-                                        <button><i class="ti-search"></i></button>
+                                        @auth
+                                            <a href="{{ route('product.index', $product->id) }}">
+                                                <button><i class="ti-search"></i></button>
+                                            </a>
+                                        @else
+                                            <a href="{{ route('login') }}">
+                                                <button><i class="ti-search"></i></button>
+                                            </a>
+                                        @endauth
                                     </li>
                                     <li>
-                                        <button><i class="ti-shopping-cart"></i></button>
+                                        @auth
+                                            <a href="{{ route('product.index', $product->id) }}">
+                                                <button><i class="ti-shopping-cart"></i></button>
+                                            </a>
+                                        @else
+                                            <a href="{{ route('login') }}">
+                                                <button><i class="ti-shopping-cart"></i></button>
+                                            </a>
+                                        @endauth
                                     </li>
                                     <li>
                                         <button><i class="ti-heart"></i></button>
