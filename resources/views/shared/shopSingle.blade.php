@@ -16,6 +16,7 @@
             </div>
         </div>
     </section>
+    
     <div class="product_image_area">
         <div class="container">
             <div class="row s_product_inner">
@@ -119,13 +120,30 @@
                         </ul>
                         <p>{{ $product->description }}</p>
                         <div class="product_count">
-                            @if ($product->status == 'available')
-                                <a class="button primary-btn" href="#">Buy</a>
+                            <form action="{{ route('send.purchase.request') }}" method="POST" class="mt-3" id="buy-button">
+                                @csrf
+                                <input type="hidden" name="buyer" value="{{ auth()->id() }}">
+                                <input type="hidden" name="seller" value="{{ $product->user_id }}">
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <div class="mb-3">
+                                    <div class="d-flex align-items-center">
+                                        <input type="number" name="offer_ratio" 
+                                            class="form-control border rounded p-2 w-full" 
+                                            placeholder="Enter offer percentage" 
+                                            min="0" 
+                                            value="0">
+                                        <span class="ms-2">offer ratio</span>
+                                    </div>
+                                </div>
+                                
+                                 @if ($product->status == 'available')
+                                <a class="button primary-btn"  href="#" onclick="document.getElementById('buy-button').submit(); return false;" >Buy</a>
                             @else
                                 <p class="alert alert-primary text-center p-3 mb-0">Product Is Sold</p>
                             @endif
-
+                            </form>
                         </div>
+                        
                     </div>
                 </div>
             </div>
@@ -508,4 +526,24 @@
             </div>
         </div>
     </section>
+    
+<script>
+    document.getElementById("buy-button").addEventListener("click", function () {
+        let productId = this.getAttribute("data-product-id");
+
+        fetch('/send-purchase-request', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+    },
+    body: JSON.stringify({
+        buyer_id: 1,       // عوض هذا بالـ ID الفعلي للمشتري
+        product_id: 5,     // ID المنتج المطلوب
+        offer_ratio: 10    // نسبة العرض أو السعر
+    })
+})
+
+</script>
 @endsection
