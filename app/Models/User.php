@@ -75,6 +75,11 @@ class User extends Authenticatable
     {
         return !$this->identity && !$this->contacts->first()?->phone_primary && !$this->location;
     }
+
+
+    public function isVerified(){
+        return $this->verified;
+    }
     public function isAdmin()
     {
         return !$this->role == 'user';
