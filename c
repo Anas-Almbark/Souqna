@@ -1,8 +1,8 @@
-Update User model implementation
+Update welcome page layout and content
 
-- Add detailed description of changes here
-- List specific modifications
-- Mention any new features or fixes
+- Modify main landing page structure
+- Update welcome page UI components
+- Enhance homepage presentation
 
 # Please enter the commit message for your changes. Lines starting
 # with '#' will be ignored, and an empty message aborts the commit.
@@ -11,5 +11,5 @@ Update User model implementation
 # Your branch is up to date with 'origin/main'.
 #
 # Changes to be committed:
-#	modified:   app/Models/User.php
+#	modified:   resources/views/welcome.blade.php
 #
